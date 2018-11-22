@@ -1,0 +1,125 @@
+{% extends "base/base.html" %}
+{% block contenido %}
+    <div class="content-frame">
+        <!-- START CONTENT FRAME TOP -->
+        <div class="content-frame-top">
+            <div class="page-title">
+
+                <h2><span class="fa fa-inbox"></span> Compras  {{ idCompra }}
+                    <small></small>
+                </h2>
+            </div>
+        </div>
+        <br> <br> <br> <br> <br> <br>
+
+        <div class="col-lg-12">
+            <form class="form-horizontal" role="form" id="compra">
+
+                    <div class="form-group pull-right" role="form">
+
+                        <label class="control-label col-md-2">Fecha</label>
+                        <div class="col-md-5">
+                            <input class="form-control datepicker" value="" type="text">
+                        </div>
+
+
+
+                    </div><br><br><br>
+
+                    <div class="form-group " role="form">
+                        <label class="control-label col-md-2">Termino de compra</label>
+                        <div class="col-md-4">
+                            <select class="form-control select">
+                                <option>Credito</option>
+                                <option>Contado</option>
+                            </select>
+
+
+                        </div>
+                        <label class="control-label col-lg-3">Tipo de compra</label>
+                        <div class=" col-lg-3">
+                            <select class="form-control select">
+                                <option>Compra Exenta</option>
+                                <option>Compra Gravada</option>
+                            </select>
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" role="form">
+                        <label class="control-label col-md-2">Nombre</label>
+                        <div class="col-md-6">
+                            <input class="form-control" value="Some text value..." type="text">
+                        </div>
+                        <label class="control-label col-md-1">Plazo</label>
+                        <div class="col-md-3">
+                            <input class="form-control" value="Some text value..." type="text">
+                        </div>
+
+                    </div>
+
+                    <br><br>
+
+
+                    <div class="panel panel-default">
+
+
+                        <div class="panel-body panel-body-table">
+
+
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Cantidad</th>
+                                    <th>Concepto</th>
+                                    <th>Costo</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <div class="col-md-6">
+                                        <td style="width: 13%"></td>
+                                        <td style="width: 61%"></td>
+                                        <td style="width: 13%"></td>
+                                        <td style="width: 13%"></td>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td style=""> IVA</td>
+                                    <td>12</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: hidden"></td>
+                                    <td style="border: hidden"></td>
+                                    <td style="border: hidden"> Total</td>
+                                    <td style="border: hidden">12</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div></div>
+
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block footer %}
+    <script type="text/javascript">
+    function validar() {
+        var form =$("#compra")
+        var valor1 = $("#cant").val();
+        var valor2=$("#precio").val();
+        var total= valor1*valor2;
+
+
+    }
+
+        </script>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% load static %}
+<!-- START PAGE SIDEBAR -->
+<div class="page-sidebar">
+    <!-- START X-NAVIGATION -->
+    <ul class="x-navigation">
+        <li class="xn-logo">
+            <a href="#">SIC-115</a>
+            <a href="{% url 'prueba'   %}" class="x-navigation-control"></a>
+        </li>
+
+        <li>
+            <a href="{% url 'prueba'   %}"><span class="fa fa-desktop"></span> <span class="xn-text">Inicio</span></a>
+        </li>
+        <li class="xn-openable">
+            <a href="#"><span class="fa fa-table"></span> <span class="xn-text">Registrar Transaccion</span></a>
+            <ul>
+                <li><a href="#"><span class="fa fa-image"></span>En Cuentas</a></li>
+                <li><a href="#"><span class="fa fa-image"></span> Ventas</a></li>
+                <li><a href="{% url 'compras'   %}"><span class="fa fa-image"></span> Compras</a></li>
+
+            </ul>
+        </li>
+        <li>
+            <a href="#"><span class="fa fa-list-alt"></span> <span class="xn-text">Sistema de costeos</span></a>
+        </li>
+        <li class="xn-openable">
+            <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Estados Finacieros</span></a>
+            <ul>
+                {% for anioE in anios_esta %}
+
+                    <li><a href="{% url 'estados' anioE.anio  %}"><span class="fa fa-file"></span> {{ anioE.anio }}</a></li>
+                {% endfor %}
+
+
+            </ul>
+        </li>
+
+        <li class="xn-openable">
+            <a href="#"><span class="fa fa-calendar"></span> <span class="xn-text">Planilla de sueldos</span></a>
+            <ul>
+                {% for anio in anios %}
+
+                    <li><a href="{% url 'estados' anio.anio  %}"><span class="fa fa-file"></span> {{ anio.anio }}</a></li>
+                {% endfor %}
+
+
+            </ul>
+        </li>
+        <li>
+            <a href="#"><span class="fa fa-list-alt"></span> <span class="xn-text">Período Contable</span></a>
+        </li>
+        <li>
+            <a href="#"><span class="fa fa-list-alt"></span> <span class="xn-text">Catálogo De Cuentas</span></a>
+        </li> 
+                <li class="xn-openable">
+            <a href="#"><span class="fa fa-table"></span> <span class="xn-text">libros</span></a>
+            <ul>
+                <li><a href="#"><span class="fa fa-image"></span>Venta</a></li>
+                <li><a href="#"><span class="fa fa-image"></span>Compra</a></li>
+                <li><a href="#"><span class="fa fa-image"></span>Diario</a></li>
+            </ul>
+        </li>
+
+
+    </ul>
+    <!-- END X-NAVIGATION -->
+</div>
+<!-- END PAGE SIDEBAR -->

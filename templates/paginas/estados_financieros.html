@@ -1,0 +1,317 @@
+{% extends "base.html" %}
+{% block contenido %}
+    <div class="content-frame">
+        <!-- START CONTENT FRAME TOP -->
+        <div class="content-frame-top">
+            <div class="page-title">
+
+                <h2><span class="fa fa-inbox"></span> Estados Financieros del año {{ anio_select }}
+                    <small></small>
+                </h2>
+            </div>
+
+
+        </div>
+        <!-- END CONTENT FRAME TOP -->
+
+        <!-- START CONTENT FRAME LEFT -->
+        <div class="content-frame-left" style="height: 700px;">
+            <div class="block">
+                <a href="pages-mailbox-compose.html" class="btn btn-danger btn-block btn-lg"><span
+                        class="fa fa-download"></span> PDF</a>
+            </div>
+            <div class="block">
+                <div class="list-group border-bottom">
+                    {% for anio in anios %}
+                        <a href="#" class="list-group-item"><span class="fa fa-inbox"></span> {{ anio.mes }}</a>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+        <!-- END CONTENT FRAME LEFT -->
+
+        <!-- START CONTENT FRAME BODY -->
+        <div class="content-frame-body" style="height: 760px;">
+
+            <div class="panel panel-default">
+                <div class="panel-heading ui-draggable-handle">
+
+                </div>
+                <div class="panel-body mail">
+
+                </div>
+                <div class="block">
+
+                    <div class="wizard">
+
+                        <ul class="steps_3 anchor">
+                            <li>
+                                <a href="#step-1" class="selected" isdone="1" rel="1">
+                                    <span class="stepNumber">1</span>
+                                    <span class="stepDesc">Estado de Resultado<br/><small></small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#step-2" class="disabled" isdone="0" rel="2">
+                                    <span class="stepNumber">2</span>
+                                    <span class="stepDesc">Estado de capital<br/><small></small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#step-3" class="disabled" isdone="0" rel="3">
+                                    <span class="stepNumber">3</span>
+                                    <span class="stepDesc">Balance General<br/><small></small></span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+
+                        <div class="stepContainer" style="height: 55px;">
+                            <div id="step-1" class="content" style="display: block;">
+                                <div class="panel panel-default ">
+                                    <div class="panel-heading ui-draggable-handle">
+                                        <h3 class="panel-title">Estado de resultado</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>Add <code>.table .table-bordered</code> to table to get table with borders.
+                                        </p>
+
+                                        <table class="table table-bordered ">
+                                            <thead>
+                                            <tr>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="col-lg-4">
+                                                    Ingresos por ventas
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-lg-4">
+                                                    (-) Costos por ventas
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-lg-4">
+                                                    <b>Utilidad Bruta</b>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-lg-4">
+                                                    (-) Gastos de operacion
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-lg-4">
+                                                    Gastos de Administracion
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-lg-4">
+                                                    Gastos de comercializacion
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-lg-4">
+                                                    <b>Utilidad de operacion</b>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-lg-4">
+                                                    (-)Gastos de Financiero
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-lg-4">
+                                                    <b>Utilidad antes del ISR y Reserva</b>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-lg-4">
+                                                    Reserva legal(7%)
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-lg-4">
+                                                    <b>Utilidad antes del ISR</b>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-lg-4">
+                                                    Impuesto sobre la renta(25%)
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-lg-4">
+                                                    <b>Utilidad Neta</b>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-2" class="content" style="display: none;">
+                                <h4>Estado Capital</h4>
+                                <p>Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et
+                                    magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh
+                                    ultricies vehicula.</p><br>
+                            </div>
+                            <div id="step-3" class="content" style="display: none;">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading ui-draggable-handle">
+                                        <h3 class="panel-title">Balance General</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>Add <code>.table .table-bordered</code> to table to get table with borders.
+                                        </p>
+                                        <table class="table table-bordered">
+    |                                       <thead>
+                                            <tr>
+                                                <th>Activos</th>
+                                                <th></th>
+                                                <th></th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                            <tr>
+                                                                <td class="col-lg-3 "><b>Activo Coriente</b></td>
+                                                                <td class="col-lg-1"></td>
+                                                                <td class="col-lg-1">100</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Efectivo</td>
+                                                                <td>100</td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-lg-3"><b>Activo no corriente</b></td>
+                                                                <td class="col-lg-1"></td>
+                                                                <td class="col-lg-1">400</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Edificaciones</td>
+                                                                <td>400</td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-lg-3"><b>Activo Diferido</b></td>
+                                                                <td class="col-lg-1"></td>
+                                                                <td class="col-lg-1">300</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Inversion fija</td>
+                                                                <td>300</td>
+                                                                <td></td>
+                                                            </tr>
+
+                                                            </tbody>
+                                        </table>
+                                        <table class="table table-bordered">
+    |                                       <thead>
+                                            <tr>
+
+                                                <th>Pasivos</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+<tr>
+                                                                <td class="col-lg-3 "><b>Pasivo Coriente</b></td>
+                                                                <td class="col-lg-1"></td>
+                                                                <td class="col-lg-1">100</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Cuentas por pagar</td>
+                                                                <td>100</td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-lg-3"><b>Pasivo no corriente</b></td>
+                                                                <td class="col-lg-1"></td>
+                                                                <td class="col-lg-1">400</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Cuentas a largo plazo</td>
+                                                                <td>400</td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-lg-3"><b>Patrimonio</b></td>
+                                                                <td class="col-lg-1"></td>
+                                                                <td class="col-lg-1">300</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Capital social</td>
+                                                                <td>300</td>
+                                                                <td></td>
+                                                            </tr>
+
+                                                            </tbody>
+                                        </table>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- END WIZARD WITH VALIDATION -->
+
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="panel-footer">
+
+
+        <button class="btn btn-default"><span class="fa fa-warning"></span></button>
+        <button class="btn btn-default"><span class="fa fa-trash-o"></span></button>
+
+    </div>
+    </div>
+
+    </div>
+    <!-- END CONTENT FRAME BODY -->
+{% endblock %}

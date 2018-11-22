@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% include "base/head.html" %}
+    {% block head %}{% endblock %}
+
+</head>
+<body>
+<!-- START PAGE CONTAINER -->
+<div class="page-container">
+
+    {% include "base/navbar.html" %}
+
+    <!-- PAGE CONTENT -->
+    <div class="page-content">
+
+
+        {% include "base/nav.html" %}
+
+        <div class="page-content-wrap">
+            {% block contenido %}
+
+
+
+            {% endblock %}
+
+        </div>
+        <!-- END PAGE CONTENT -->
+    </div>
+</div>
+<!-- END PAGE CONTAINER -->
+{% include "base/footer.html" %}
+{% block footer %}
+{% endblock %}
+
+
+</body>
+</html>
+
