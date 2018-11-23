@@ -41,7 +41,7 @@ class Cuenta(models.Model):
     tipoCuenta = models.CharField(max_length=35)
 
 class ControlEfectivo(models.Model):
-    idControl = models.CharField(max_length=10,primary_key=True)
+    idControl = models.AutoField(primary_key=True)
     fecha = models.DateField()
     tipoComprobante = models.CharField(max_length=30)
     concepto = models.CharField(max_length=50)
@@ -52,7 +52,7 @@ class ControlEfectivo(models.Model):
 
 
 class TransaccionCV(models.Model):
-    idTransaccion = models.CharField(max_length=10,primary_key=True)
+    idTransaccion = models.AutoField(primary_key=True)
     fecha = models.DateField()
     concepto = models.CharField(max_length=50)
     comprobante = models.CharField(max_length=50)
@@ -66,7 +66,7 @@ class TransaccionCV(models.Model):
     #iva                                                        Deberia llevar una tabla
 
 class PeriodoContable(models.Model):
-    idPeriodoConta = models.CharField(max_length=10,primary_key=True)
+    idPeriodoConta = models.AutoField(primary_key=True)
     fechaInicio = models.DateField()
     fechaFin = models.DateField()
     activo = models.BooleanField()
@@ -75,7 +75,7 @@ class PeriodoContable(models.Model):
 
 
 class libroMayor(models.Model):
-    idLibroM = models.CharField(max_length=4,primary_key=True)
+    idLibroM = models.AutoField(primary_key=True)
     fecha = models.DateField()
     debe = models.CharField(max_length=100)
     haber = models.CharField(max_length=100)
@@ -85,7 +85,7 @@ class libroMayor(models.Model):
 
 
 class CostoAbsorcion(models.Model):
-    idCostoAbs = models.CharField(max_length=10,primary_key=True)
+    idCostoAbs = models.AutoField(primary_key=True)
     producto = models.IntegerField()
     costoProduccion = models.DecimalField(max_digits=7, decimal_places=2)
     costoAdmon = models.DecimalField(max_digits=7, decimal_places=2)
@@ -94,21 +94,21 @@ class CostoAbsorcion(models.Model):
 
 
 class CostoUnitario(models.Model):
-    idCostoUnit=models.CharField(max_length=10,primary_key=True)
+    idCostoUnit = models.AutoField(primary_key=True)
     periodo = models.OneToOneField(PeriodoContable, on_delete=models.CASCADE)
     produccionAnual = models.IntegerField()
     costoUnitario = models.DecimalField(max_digits=4, decimal_places=2)
     precioVenta = models.DecimalField(max_digits=4, decimal_places=2)
 
 class detalleKardex(models.Model):
-    idDetalle=models.CharField(max_length=4,primary_key=True)
+    idDetalle = models.AutoField(primary_key=True)
     tipo = models.CharField(max_length=4)
     nombre = models.CharField(max_length=100)
     fecha = models.DateField()
 
 
 class Kardex(models.Model):
-    idKardex=models.CharField(max_length=10,primary_key=True)
+    idKardex = models.AutoField(primary_key=True)
     fecha = models.DateField()
     #entradas
     cantEntrada = models.IntegerField()
@@ -128,7 +128,7 @@ class Kardex(models.Model):
 
 
 class libroDiario(models.Model):
-    idLibroD = models.CharField(max_length=4,primary_key=True)
+    idLibroD = models.AutoField(primary_key=True)
     fecha = models.DateField()
     libroM = models.OneToOneField(libroMayor, on_delete=models.CASCADE)
     cuenta = models.ForeignKey(Cuenta, on_delete=models.CASCADE)
@@ -137,5 +137,5 @@ class libroDiario(models.Model):
     abono = models.CharField(max_length=80)
 
 class Planilla(models.Model):
-    idPlanilla = models.CharField(max_length=4,primary_key=True)
+    idPlanilla = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
