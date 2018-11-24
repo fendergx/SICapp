@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^navbar/$', views.probando, name='navbar'),
     url(r'compras/$', views.compras, name='compras'),
     url(r'ventas/$', views.ventas, name='ventas'),
+    url(r'periodocontable/$', views.periodoContable, name='periodocontable'),
 
 
 ]

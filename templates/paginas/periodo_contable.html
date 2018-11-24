@@ -1,0 +1,117 @@
+{% extends "base/base.html" %}
+{% block contenido %}
+    <div class="content-frame">
+        <div class="content-frame-top">
+            <div class="page-title">
+
+                <h2><span class="fa fa-inbox"></span> Registro de periodo contable
+                    <small></small>
+                </h2>
+            </div>
+        </div>
+        <br> <br> <br> <br> <br> <br>
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading ui-draggable-handle">
+                    <h3 class="panel-title">Periodo contable activo</h3>
+                </div>
+                <div class="panel-body">
+
+                    {% if periodo_actual %}
+                        <table class="table table-hover">
+
+                            <thead>
+                            <tr>
+                                <th>Fecha de incio</th>
+                                <th>Fecha de fin</th>
+                                <th>Estado</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>{{ periodo_actual.fechaInicio }}</td>
+                                <td>{{ periodo_actual.fechaFin }}</td>
+                                <td>Activo</td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+
+
+                        </div>
+                        </div>
+                        </div>
+                        <form method="get">{% csrf_token %}
+                            <div class="col-md-2 pull-right">
+
+                                <input class="btn btn-primary" value="Cerrar periodo" type="submit">
+                            </div>
+                        </form>
+                    {% else %}
+                        <p>No hay periodo contable activo, registre nuevo periodo contable</p>
+                        <button class="btn btn-default" data-toggle="modal" data-target="#modal_basic">Agregar</button>
+
+                    {% endif %}
+
+    </div>
+{% endblock %}
+{% block footer %}
+    <div class="modal" id="modal_basic" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="defModalHead">Nuevo periodo contable</h4>
+                </div>
+                <div class="modal-body">
+
+                <form method="post" class="form-horizontal" id="newPeriodo" name="newPeriodo">{% csrf_token %}
+                    <label class="col-md-3 ">Fecha de inicio</label>
+                    <div class="col-md-7">
+                      <input class="form-control datepicker" value="" type="text" id="fechaInicio" name="fechaInicio">
+                    </div>
+                    <br><br>
+                    <label class="control-label col-md-3">Fecha de fin</label>
+                    <div class="col-md-7">
+                        <input class="form-control datepicker" value="" type="text" id="fechaFin" name="fechaFin">
+                    </div>
+                    <div id="agregar">
+
+                    </div>
+                    <br>
+
+                    <br><br><br><br>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary "  onclick="agregar()">Guardar</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+   <script type="text/javascript">
+    function agregar() {
+        var form =$("#newPeriodo");
+        var fecha1=$("#fechaInicio").val();
+        var fecha=new Date(fecha1);
+        var valor1 = fecha.getFullYear();
+        var valor2=fecha.getMonth()  ;
+        var elemento_para_agregar =
+                `
+                    <input type="text" hidden id="anio" name="anio" value="${valor1}">
+                        <input type="text" hidden id="mes" name="mes" value="${valor2}>
+
+				`
+
+			$(elemento_para_agregar).appendTo($('#agregar'));
+        form.submit();
+    }
+
+    </script>
+
+{% endblock %}

@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
-from Sicapp.iniciar import iniciarCompra
+from Sicapp.iniciar import *
 from Sicapp.models import *
 
 
@@ -40,3 +40,43 @@ def ventas(request):
         #'idCompra':c,
     }
     return render(request,"paginas/venta.html",context)
+
+def periodoContable(request):
+    anios_estados = PeriodoContable.objects.raw(
+    'select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
+
+    try:
+        periodo = PeriodoContable.objects.get(activo=True)
+        periodoActualizar = PeriodoContable.objects.get(activo='True')
+        if request.GET:
+            periodoActualizar.idPeriodo
+            periodoActualizar.activo = False
+            periodoActualizar.save()
+
+            try: periodo = PeriodoContable.objects.get(activo=True)
+            except PeriodoContable.DoesNotExist:
+                periodo = None
+
+
+    except PeriodoContable.DoesNotExist:
+        periodo = None
+
+
+    if request.POST:
+        fechaInicio = request.POST.get('fechaInicio')
+        fechaFin = request.POST.get('fechaFin')
+        anio = request.POST.get('anio')
+        mes = request.POST.get('anio')
+        newPeriodo = PeriodoContable(fechaInicio=fechaInicio, fechaFin=fechaFin, anio=anio, mes=mes)
+        newPeriodo.save()
+        try:
+            periodo = PeriodoContable.objects.get(activo=True)
+        except PeriodoContable.DoesNotExist:
+            periodo = None
+
+    context = {
+        'anios_esta': anios_estados,
+        'periodo_actual': periodo,
+    }
+
+    return render(request, "paginas/periodo_contable.html", context)
