@@ -43,7 +43,7 @@ def ventas(request):
 
 def periodoContable(request):
     anios_estados = PeriodoContable.objects.raw(
-    'select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
+        'select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
 
     try:
         periodo = PeriodoContable.objects.get(activo=True)
@@ -65,8 +65,8 @@ def periodoContable(request):
     if request.POST:
         fechaInicio = request.POST.get('fechaInicio')
         fechaFin = request.POST.get('fechaFin')
-        anio = request.POST.get('anio')
-        mes = request.POST.get('anio')
+        anio = request.POST.get('id_anio')
+        mes = request.POST.get('id_mes')
         newPeriodo = PeriodoContable(fechaInicio=fechaInicio, fechaFin=fechaFin, anio=anio, mes=mes)
         newPeriodo.save()
         try:

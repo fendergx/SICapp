@@ -95,23 +95,31 @@
         </div>
     </div>
    <script type="text/javascript">
-    function agregar() {
-        var form =$("#newPeriodo");
-        var fecha1=$("#fechaInicio").val();
-        var fecha=new Date(fecha1);
-        var valor1 = fecha.getFullYear();
-        var valor2=fecha.getMonth()  ;
-        var elemento_para_agregar =
-                `
-                    <input type="text" hidden id="anio" name="anio" value="${valor1}">
-                        <input type="text" hidden id="mes" name="mes" value="${valor2}>
+       function agregar() {
+           var form =$("#newPeriodo");
+           var fecha1=$("#fechaInicio").val();
+            var fecha=new Date(fecha1);
+            var valor1 = fecha.getFullYear();
 
-				`
+            var valor2=fecha.getMonth()+2;
+            if (valor2==13||valor2>13){
+                valor2=1;
+            }
 
-			$(elemento_para_agregar).appendTo($('#agregar'));
-        form.submit();
-    }
+            var elemento_para_agregar =
+                    `
+                        <input type="text" hidden id="id_anio" name="id_anio" value="${valor1}">
+                        <input type="text" hidden id="id_mes" name="id_mes" value="${valor2}">
 
-    </script>
+                    `
+
+                $(elemento_para_agregar).appendTo($('#agregar'));
+            form.submit();
+
+       }
+
+
+
+   </script>
 
 {% endblock %}

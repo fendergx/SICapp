@@ -69,7 +69,7 @@ class PeriodoContable(models.Model):
     idPeriodo = models.AutoField(primary_key=True)
     fechaInicio = models.DateField()
     fechaFin = models.DateField()
-    activo = models.BooleanField()
+    activo=models.BooleanField(default=True)
     anio = models.IntegerField()
     mes = models.IntegerField()
 
