@@ -1,0 +1,113 @@
+{% extends "base/base.html" %}
+{% block contenido %}
+    <div class="content-frame">
+        <!-- START CONTENT FRAME TOP -->
+        <div class="content-frame-top">
+            <div class="page-title">
+
+                <h2><span class="fa fa-inbox"></span> Costo Indirecto  {{ idCif }}
+                    <small></small>
+                </h2>
+            </div>
+        </div>
+        <br> <br> <br> <br> <br> <br>
+
+        
+
+
+
+                    </div><br><br><br>
+
+                    <div class="form-group " role="form">
+                        <label class="control-label col-md-2">nombre del CIF</label>
+                        <div class="col-md-4">
+                            <select class="form-control select">
+                                <option>Energia</option>
+                                <option>Maquinaria</option>
+                            </select>
+                        </div>
+                        <br> <br>
+                        <label class="control-label col-md-2">descripcion</label>
+                        <div class=" col-md-4">
+                            <select class="form-control select">
+                                <option>CIf es el 30% de mano de obra directa</option>
+                                <option></option>
+                            </select>
+
+
+                        </div>
+                    </div>
+
+                    <br> <br>
+                    <div class="form-group" role="form">
+                        <label class="control-label col-md-2">costoIF</label>
+                        <div class="col-md-6">
+                            <input class="form-control" value="" type="text">
+                        </div>
+                       
+
+                    </div>
+
+                    <br><br>
+
+
+                    <div class="panel panel-default">
+
+
+                        <div class="panel-body panel-body-table">
+
+
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Costo Mano de obra</th>
+                                    <th>valor</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <div class="col-md-6">
+                                        <td style="width: 13%"></td>
+                                        <td style="width: 61%"></td>
+                                        <td style="width: 13%"></td>
+                                        <td style="width: 13%"></td>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <td style=""> PET</td>
+                                    <td>$ 150</td>
+                                    <td>1</td>
+                                    <td>150</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: hidden"></td>
+                                    <td style="border: hidden"></td>
+                                    <td style="border: hidden"> Total</td>
+                                    <td style="border: hidden">150</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div></div>
+
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block footer %}
+    <script type="text/javascript">
+    function validar() {
+        var form =$("#compra")
+        var valor1 = $("#cant").val();
+        var valor2=$("#precio").val();
+        var total= valor1*valor2;
+
+
+    }
+
+        </script>
+{% endblock %}

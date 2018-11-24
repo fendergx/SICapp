@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'compras/$', views.compras, name='compras'),
     url(r'ventas/$', views.ventas, name='ventas'),
     url(r'periodocontable/$', views.periodoContable, name='periodocontable'),
-
-
+    url(r'costoIndirecto/$', views.costoIndirecto, name='costoIndirecto'),
+    url(r'materiaPrima/$', views.materiaPrima, name='materiaPrima'),
+    url(r'manoDeObraD/$', views.manoDeObraD, name='manoDeObraD'),
 ]

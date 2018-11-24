@@ -80,3 +80,38 @@ def periodoContable(request):
     }
 
     return render(request, "paginas/periodo_contable.html", context)
+
+
+   # def CostoIndirectoList(request):
+    #model = CostoIndirecto
+    #template_name = 'paginas/costoInditecto_list.html'
+
+def costoIndirecto(request):
+    anios_estados = PeriodoContable.objects.raw('select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
+    #c=iniciarCompra()
+
+    context={
+        'anios_esta':anios_estados,
+        #'idCompra':c,
+    }
+    return render(request,"paginas/costo_indirecto.html",context)
+    
+def materiaPrima(request):
+    anios_estados = PeriodoContable.objects.raw('select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
+    #c=iniciarCompra()
+
+    context={
+        'anios_esta':anios_estados,
+        #'idCompra':c,
+    }
+    return render(request,"paginas/materia_prima.html",context)
+
+def manoDeObraD(request):
+    anios_estados = PeriodoContable.objects.raw('select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
+    #c=iniciarCompra()
+
+    context={
+        'anios_esta':anios_estados,
+        #'idCompra':c,
+    }
+    return render(request,"paginas/mano_de_obra.html",context)

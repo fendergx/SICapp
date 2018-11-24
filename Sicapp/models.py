@@ -139,3 +139,27 @@ class libroDiario(models.Model):
 class Planilla(models.Model):
     idPlanilla = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
+
+#---------------**********-----------------------*************----------------------
+
+class CostoIndirecto(models.Model):
+    idCif = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=200)
+    descripcion = models.DecimalField(max_digits=7, decimal_places=2)
+    costoIF = models.TextField(null=True, blank=True)
+    
+
+class MateriaPrima(models.Model):
+    idMp = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=200)
+    descripcion = models.DecimalField(max_digits=7, decimal_places=2)
+    cantidadM = models.DecimalField(max_digits=7, decimal_places=2)
+    valor = models.TextField(null=True, blank=True)
+    
+
+class ManoDeObraD(models.Model):    
+    idMod = models.AutoField(primary_key=True)
+    horasT = models.DecimalField(max_digits=7, decimal_places=2)
+    costoMOD = models.TextField(null=True, blank=True)
+     
+    
