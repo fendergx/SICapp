@@ -31,4 +31,12 @@ def compras(request):
     }
     return render(request,"paginas/compra.html",context)
 
+def ventas(request):
+    anios_estados = PeriodoContable.objects.raw('select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
+    #c=iniciarCompra()
 
+    context={
+        'anios_esta':anios_estados,
+        #'idCompra':c,
+    }
+    return render(request,"paginas/venta.html",context)

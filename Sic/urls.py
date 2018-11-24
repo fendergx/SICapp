@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^estados/(?P<id_estados>\d+)/$',views.estadosFinancieros, name='estados'),
     url(r'^navbar/$', views.probando, name='navbar'),
     url(r'compras/$', views.compras, name='compras'),
+    url(r'ventas/$', views.ventas, name='ventas'),
 
 
 ]
