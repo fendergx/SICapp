@@ -36,7 +36,7 @@ class Detallecompra(models.Model):
 #---------------------------------------------------------------------------------------------------------------
 
 class Cuenta(models.Model):
-    codCuenta = models.CharField(max_length=10,primary_key=True)
+    codCuenta = models.CharField(max_length=10, primary_key=True)
     nombre = models.CharField(max_length=50)
     tipoCuenta = models.CharField(max_length=35)
 
@@ -66,7 +66,7 @@ class TransaccionCV(models.Model):
     #iva                                                        Deberia llevar una tabla
 
 class PeriodoContable(models.Model):
-    idPeriodoConta = models.AutoField(primary_key=True)
+    idPeriodo = models.AutoField(primary_key=True)
     fechaInicio = models.DateField()
     fechaFin = models.DateField()
     activo = models.BooleanField()
