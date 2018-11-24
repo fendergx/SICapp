@@ -1,0 +1,16 @@
+Python: 2.7.15
+Django: 1.11
+pytz==2018.7
+
+
+opcional:
+virtualenv==16.1.0
+
+Base de datos actual:
+SQLite
+
+--------------------
+desarrollo opcional
+-Sublime Text 3
+-cmder
+
