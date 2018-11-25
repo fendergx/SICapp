@@ -55,6 +55,7 @@ Para el desarrollo del software:<br>
 Para un entorno completo de pruebas adicionales con Php+mySql se recomienda
 <a href="https://www.apachefriends.org/es/index.html">XAMP</a><br>
 
-como extra una consola intuitiva para windows [![PyPI - CMder](img/logo.svg)](http://cmder.net/)
-<a href="http://cmder.net/">Cmder | Console Emulator</a>
+como extra una consola intuitiva para windows 
+[![PyPI - Python Version](https://img.shields.io/badge/CMD-black.svg)](http://cmder.net/)
+<a href="http://cmder.net/"> Cmder | Console Emulator</a>
 
