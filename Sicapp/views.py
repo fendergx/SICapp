@@ -4,6 +4,8 @@ from django.shortcuts import render
 # Create your views here.
 from Sicapp.iniciar import *
 from Sicapp.models import *
+from django.template import RequestContext
+from .forms import EntradaForm
 
 
 #def probando(request):return render(request, "index.html")
@@ -115,3 +117,37 @@ def manoDeObraD(request):
         #'idCompra':c,
     }
     return render(request,"paginas/mano_de_obra.html",context)
+
+def producto(request):
+    return render(request,"paginas/producto.html")
+
+
+def Entradas(request):
+    if request.method == 'POST':
+
+        
+                form1 = EntradaForm(request.POST)
+                if form1.is_valid():
+                    horas=request.POST.get('salario')
+                    des=request.POST.get('renta')
+                    
+
+                    horas= int(float(salario)+(float(renta)-float(renta)*0.13))
+                   
+
+                    horas2= int(float(salario)+float(renta)-(float(renta)*(float(iva_simulado)/100.00)))
+                    
+                    form1.save()
+                    
+                    
+                return render_to_response('resultado/resultado.html', {'horas':horas,  'form1':form1})
+
+
+
+    else:
+            form1=EntradaForm()
+
+    #contexto ={
+    #'entradas':form1,'salidas':suma
+    #}
+    return render(request,'simulacion/entradas.html', {'form1':form1})

@@ -5,50 +5,112 @@
         <div class="content-frame-top">
             <div class="page-title">
 
-                <h2><span class="fa fa-inbox"></span> Costo Indirecto  {{ idCif }}
+                <h2><span class="fa fa-inbox"></span> Costo por Proceso {{ idCif }}
                     <small></small>
                 </h2>
             </div>
         </div>
         <br> <br> <br> <br> <br> <br>
+     
+     <h1>Costo Indirectos De Fabricacion<h2>
+ 
 
-        
-
-
-
-                    </div><br><br><br>
+</div>
+<br><br><br>
 
                     <div class="form-group " role="form">
-                        <label class="control-label col-md-2">nombre del CIF</label>
-                        <div class="col-md-4">
-                            <select class="form-control select">
-                                <option>Energia</option>
-                                <option>Maquinaria</option>
-                            </select>
-                        </div>
+                        <h3>COSTOS INDIRECTOS VARIABLES</h3>
+                        <label class="control-label col-md-2">Datos del CIF variables</label>
+                       <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+  <thead>
+    <tr>
+      <th>CIF </th>
+      <th>precio</th>
+      <th>horas </th>
+        <th>mod </th>
+      <th>total</th>
+     
+
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <tr>
+       <td>Electricidad</td>
+      <td>{{v}}</td>
+      <td>{{v}}</td>
+      <td>{{v}}</td>
+      <td>{{total1}}</td>
+      
+    
+    </tr>
+   <tr>
+       <td>Maquinaria</td>
+      <td>{{v}}</td>
+      <td>{{v}}</td>
+      <td>{{v}}</td>
+      <td>{{total3}}</td>
+       
+    
+    </tr>
+    <tr>
+       <td>Depreciacion</td>
+      <td>{{b}}</td>
+      <td>{{g}}</td>
+      <td>{{p}}</td>
+      <td>{{total4}}</td>
+       
+    
+    </tr>
+
+  </tbody>
+</table>
+                         <br> <br>
+                        <h3>COSTOS INDIRECTOS FIJOS</h3>
+                        <label class="control-label col-md-2">Datos del CIF</label>
+<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+  <thead>
+    <tr>
+      <th>CIF </th>
+      <th>precio</th>
+      <th>horas necesarias</th>
+        <th>salario </th>
+      <th>total</th>
+     
+
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <tr>
+       <td>tornillos</td>
+      <td>0.02</td>
+      <td>6</td>
+      <td></td>
+      <td>{{total1}}</td>
+      
+    
+    </tr>
+   <tr>
+       <td>cajas</td>
+      <td>0.56</td>
+      <td>4</td>
+      <td></td>
+      <td>{{total2}}</td>
+       
+    
+    </tr>
+  </tbody>
+</table>
                         <br> <br>
-                        <label class="control-label col-md-2">descripcion</label>
-                        <div class=" col-md-4">
-                            <select class="form-control select">
-                                <option>CIf es el 30% de mano de obra directa</option>
-                                <option></option>
-                            </select>
-
-
-                        </div>
+                    
+                        
                     </div>
 
                     <br> <br>
-                    <div class="form-group" role="form">
-                        <label class="control-label col-md-2">costoIF</label>
-                        <div class="col-md-6">
-                            <input class="form-control" value="" type="text">
-                        </div>
-                       
-
-                    </div>
-
-                    <br><br>
+                                
 
 
                     <div class="panel panel-default">
@@ -56,58 +118,86 @@
 
                         <div class="panel-body panel-body-table">
 
+ <h1>COSTO DE MATERIAL DE ELABORACION</h1> 
+ <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+  <thead>
+    <tr>
+      <th>material </th>
+      <th>precio</th>
+      <th>MOD</th>
+        <th>existencia</th>
+      <th>total</th>
+     
 
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Costo Mano de obra</th>
-                                    <th>valor</th>
-                                    <th>Subtotal</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <div class="col-md-6">
-                                        <td style="width: 13%"></td>
-                                        <td style="width: 61%"></td>
-                                        <td style="width: 13%"></td>
-                                        <td style="width: 13%"></td>
-                                    </div>
-                                </tr>
-                                <tr>
-                                    <td style=""> PET</td>
-                                    <td>$ 150</td>
-                                    <td>1</td>
-                                    <td>150</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: hidden"></td>
-                                    <td style="border: hidden"></td>
-                                    <td style="border: hidden"> Total</td>
-                                    <td style="border: hidden">150</td>
-                                </tr>
+    </tr>
+  </thead>
 
-                                </tbody>
-                            </table>
-                        </div></div>
+  <tbody>
+
+    <tr>
+       <td>PET</td>
+      <td>1.50</td>
+      <td></td>
+      <td></td>
+      <td>{{total}}</td>
+      
+    
+    </tr>
+   <tr>
+       <td>HDPE</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+       
+    
+    </tr>
+    <tr>
+       <td>LDPE</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+       
+    
+    </tr>
+  </tbody>
+</table>
+
+<h1>SALARIO</h1> 
+<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+  <thead>
+    <tr>
+      <th>material </th>
+      <th>precio</th>
+      <th>MOD</th>
+        <th>existencia</th>
+      <th>total</th>
+     
+
+    </tr>
+  </thead>
+
+  <tbody>
+  </tbody>
+</table>
+
+
+<h1>COSTO DEL PRODUCTO</h1>
+  </div></div>
 
             </form>
 
         </div>
     </div>
 
+
+
+
 {% endblock %}
 {% block footer %}
     <script type="text/javascript">
-    function validar() {
-        var form =$("#compra")
-        var valor1 = $("#cant").val();
-        var valor2=$("#precio").val();
-        var total= valor1*valor2;
-
-
-    }
 
         </script>
 {% endblock %}
+

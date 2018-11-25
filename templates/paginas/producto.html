@@ -1,0 +1,77 @@
+{% extends "base/base.html" %}
+
+
+
+{% block contenido %}
+    <div class="content-frame">
+        <!-- START CONTENT FRAME TOP -->
+        <div class="content-frame-top">
+            <div class="page-title">
+
+                <h1><span class="fa fa-inbox"></span> seleccionar producto a costear
+                 {{ idProducto }}
+                    <small></small>
+                </h1>
+            </div>
+        </div>
+       
+<br><br>
+
+<div class="productos">
+	<div class="row">
+		<div class="col-md-6 product">
+			<div class="card">
+				<a title="mesa" href="{% url 'costoIndirecto'  %}"><img src="../static/img/productos/mesa.jpg" alt="mesa" /></a>
+				<p>MESA PARA EXTERIOR</p>
+				<br><br>
+</div>
+</div>
+
+<div class="col-md-6 product">
+			<div class="card">
+				<a title="figuras" href="{% url 'costoIndirecto' %}"><img src="../static/img/productos/figuras.jpg" alt="figuras" /></a>
+				<p>FIGURAS PEQUEÑAS</p>
+				<br><br>					
+</div>
+</div>
+<div class="col-md-6 product">
+			<div class="card">
+				<a title="silla" href="{% url 'costoIndirecto'  %}"><img src="../static/img/productos/sillaplaya.jpg" alt="silla" /></a>
+				<p>SILLA DE PLAYA</p>
+				<br><br>	
+	</div>
+</div>			
+
+<div class="col-md-6 product">
+			<div class="card">
+				<a title="banca" href="{% url 'costoIndirecto'   %}"><img src="../static/img/productos/banca.jpg" alt="banca" /></a>
+				<p>BANCA</p>
+				<br><br>
+</div>
+</div>	
+<div class="col-md-6 product">
+			<div class="card">
+				<a title="losa" href="{% url 'costoIndirecto' %}"><img src="../static/img/productos/losa.jpg" alt="losa" /></a>
+				<p>LOSAS</p>
+				<br><br>	
+</div>
+</div>	
+
+</div>
+</div>
+</div>
+
+<li><a href="{% url 'costoIndirecto'   %}"><span class="fa fa-image"></span> costo</a></li>
+
+
+
+
+	
+
+{% endblock %}
+
+{% block footer %}
+    <script type="text/javascript">
+        </script>
+
+{% endblock %}        

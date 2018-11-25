@@ -7356,4 +7356,7 @@ li.ext_zip {
     background-image: url("../img/logo@2x.png");
     background-size: 220px 50px;
   }
+  .product img{
+    width: 150px;
+  }
 }

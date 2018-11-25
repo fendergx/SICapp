@@ -147,7 +147,7 @@ class CostoIndirecto(models.Model):
     nombre = models.CharField(max_length=200)
     descripcion = models.DecimalField(max_digits=7, decimal_places=2)
     costoIF = models.TextField(null=True, blank=True)
-    
+    #="{% url 'costoIndirecto'   %}"    
 
 class MateriaPrima(models.Model):
     idMp = models.AutoField(primary_key=True)
@@ -162,4 +162,10 @@ class ManoDeObraD(models.Model):
     horasT = models.DecimalField(max_digits=7, decimal_places=2)
     costoMOD = models.TextField(null=True, blank=True)
      
-    
+class Producto(models.Model):
+    idProducto = models.AutoField(primary_key=True)
+    nombreP = models.CharField(max_length=50)
+
+class DatoEntrada(models.Model):
+    horas= models.DecimalField(decimal_places=2, max_digits=10)
+    des= models.DecimalField(decimal_places=2, max_digits=10)
