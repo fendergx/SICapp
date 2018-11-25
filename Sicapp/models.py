@@ -5,31 +5,31 @@ from django.db import models
 # Create your models here.
 
 class Proveedor(models.Model):
-    idProveedor= models.AutoField(primary_key=True)
-    nrc=models.CharField(max_length=100,null=False)
-    razonSocial=models.CharField(max_length=100,null=False)
-    direccion=models.CharField(max_length=100,null=False)
-    estado=models.BooleanField(default=True)                #Activo o Inactivo
+    idProveedor = models.AutoField(primary_key=True)
+    nrc = models.CharField(max_length=100, null=False)
+    razonSocial = models.CharField(max_length=100, null=False)
+    direccion = models.CharField(max_length=100, null=False)
+    estado = models.BooleanField(default=True)  # Activo o Inactivo
 
 
 class Compra(models.Model):
     idCompra = models.AutoField(primary_key=True)
-    fecha=models.DateField()
-    terminoCompra=models.CharField(max_length=100,null=False)       #Exenta o gravada
-    tipoCompra=models.CharField(max_length=100,null=False)          #Credito o Contado
+    fecha = models.DateField()
+    terminoCompra = models.CharField(max_length=100, null=False)  # Exenta o gravada
+    tipoCompra = models.CharField(max_length=100, null=False)  # Credito o Contado
     proveedor=models.ForeignKey(Proveedor, on_delete=models.CASCADE)
-    plazo=models.CharField(max_length=100,null=False)
-    iva=models.DecimalField(max_digits=8, decimal_places=2)
-    total=models.DecimalField(max_digits=8, decimal_places=2)
-    estado=models.BooleanField(default=False)
+    plazo = models.CharField(max_length=100, null=False)
+    iva = models.DecimalField(max_digits=8, decimal_places=2)
+    total = models.DecimalField(max_digits=8, decimal_places=2)
+    estado = models.BooleanField(default=False)
 
 class Detallecompra(models.Model):
-    idDetalleCompra=models.AutoField(primary_key=True)
-    compra=models.ForeignKey(Compra, on_delete=models.CASCADE)
-    cantidad=models.IntegerField()
-    concepto=models.CharField(max_length=100,null=False)
-    precio=models.DecimalField(max_digits=8, decimal_places=2)
-    total=models.DecimalField(max_digits=8, decimal_places=2)
+    idDetalleCompra = models.AutoField(primary_key=True)
+    compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
+    cantidad = models.IntegerField()
+    concepto = models.CharField(max_length=100, null=False)
+    precio = models.DecimalField(max_digits=8, decimal_places=2)
+    total = models.DecimalField(max_digits=8, decimal_places=2)
 
 
 
