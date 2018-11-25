@@ -5,5 +5,5 @@ Es la tesis completa donde esta seccionado todo
 
 Es la parte únicamenet del Sistema Contable de la tesis
 
-##CatálogoDeCuentas.pdf
+## CatálogoDeCuentas.pdf
 Las supuestas cuentas que utilizaremos aunque no creo que utlicemos todas.
