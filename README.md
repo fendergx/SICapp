@@ -41,6 +41,20 @@ O para la versión 1.11
 ```bash
 $ pip install django==1.11
 ```
+### Comandos básicos Django (Terminal)
+actualizarPip
+```bash
+$ python -m pip install --upgrade pip
+```
+Comandos
+```bash
+$ django-admin startproject
+$ django-admin startapp
+$ manage.py makemigrations
+$ manage.py migrate
+$ manage.py runserver
+$ manage.py runserver 1212 (u otro puerto)
+```
 
 ## Software Adicional para el desarrollo
 
@@ -49,7 +63,7 @@ Para el control de versiones:
 <a href="https://desktop.github.com/"> GitHub Desktop</a>
 
 Para el desarrollo del software:<br>
-<a href="https://desktop.github.com/">Sublime Text</a>, <a href="https://notepad-plus-plus.org/download/">Notepad++ </a>
+<a href="https://desktop.github.com/">Sublime Text</a>, Para hacer comparativa de cambios <a href="https://notepad-plus-plus.org/download/">Notepad++ </a>
  o un IDE robusto como<a href="https://www.jetbrains.com/pycharm/"> PyCharm</a>
 
 Para un entorno completo de pruebas adicionales con Php+mySql se recomienda
