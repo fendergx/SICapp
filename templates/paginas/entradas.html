@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+
+
+{% block contenido %}
+ <div>
+ 	
+ <form method="post">
+ 	{% csrf_token %}
+ 	{{ form1.as_p }}
+ 	<button type="submit" name="btnSimular">Costear</button>
+ 	<button type="reset">Borrar Datos</button>
+ </form> 	
+
+<div>
+	
+
+
+</div>
+ </div>
+
+
+ {% endblock %}

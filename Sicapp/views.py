@@ -1,5 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect, render_to_response
+
 
 # Create your views here.
 from Sicapp.iniciar import *
@@ -128,26 +129,21 @@ def Entradas(request):
         
                 form1 = EntradaForm(request.POST)
                 if form1.is_valid():
-                    horas=request.POST.get('salario')
-                    des=request.POST.get('renta')
+                    horas=request.POST.get('horas')
+                    des=request.POST.get('des')
                     
 
-                    horas= int(float(salario)+(float(renta)-float(renta)*0.13))
-                   
-
-                    horas2= int(float(salario)+float(renta)-(float(renta)*(float(iva_simulado)/100.00)))
+                    totalmod=float(horas)
+                    total1=12
                     
                     form1.save()
-                    
-                    
-                return render_to_response('resultado/resultado.html', {'horas':horas,  'form1':form1})
-
-
+#return render_to_response('paginas/costo_indirecto.html', {'horas':horas, 'des':des, 'totalmod':totalmod, 'total1':total1,  'form1':form1})
+                return render_to_response('paginas/costo_indirecto.html', {'form1':form1})
 
     else:
-            form1=EntradaForm()
+        form1=EntradaForm()
 
     #contexto ={
     #'entradas':form1,'salidas':suma
     #}
-    return render(request,'simulacion/entradas.html', {'form1':form1})
+        return render(request,'paginas/entradas.html', {'form1':form1})

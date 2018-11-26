@@ -31,4 +31,5 @@ urlpatterns = [
     url(r'materiaPrima/$', views.materiaPrima, name='materiaPrima'),
     url(r'manoDeObraD/$', views.manoDeObraD, name='manoDeObraD'),
     url(r'producto/', views.producto, name='producto'),
+    url(r'Entradas/', views.Entradas,name="Entradas"),
 ]
