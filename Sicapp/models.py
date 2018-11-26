@@ -34,6 +34,13 @@ class Detallecompra(models.Model):
 
 
 #---------------------------------------------------------------------------------------------------------------
+<<<<<<< HEAD
+
+class Cuenta(models.Model):
+    codCuenta = models.CharField(max_length=10, primary_key=True)
+    nombre = models.CharField(max_length=50)
+    tipoCuenta = models.CharField(max_length=35)
+=======
 class Clase(models.Model):
     codigo_clase = models.CharField(max_length=1, blank=False) 
     nom_clase = models.CharField(max_length=50, blank=False)
@@ -51,6 +58,7 @@ class Cuenta(models.Model):
     codigo_detalle = models.CharField(max_length=2)
     codigo_auxiliar = models.CharField(max_length=2)
     nom_cuenta = models.CharField(max_length=50, blank=False)
+>>>>>>> parent of a29ccdf... Revert "Update models.py"
 
 class ControlEfectivo(models.Model):
     idControl = models.AutoField(primary_key=True)
