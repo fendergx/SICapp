@@ -2,8 +2,6 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-# Create your models here.
-
 class Proveedor(models.Model):
     idProveedor = models.AutoField(primary_key=True)
     nrc = models.CharField(max_length=100, null=False)
@@ -32,33 +30,11 @@ class Detallecompra(models.Model):
     total = models.DecimalField(max_digits=8, decimal_places=2)
 
 
-
 #---------------------------------------------------------------------------------------------------------------
-<<<<<<< HEAD
-
 class Cuenta(models.Model):
     codCuenta = models.CharField(max_length=10, primary_key=True)
     nombre = models.CharField(max_length=50)
     tipoCuenta = models.CharField(max_length=35)
-=======
-class Clase(models.Model):
-    codigo_clase = models.CharField(max_length=1, blank=False) 
-    nom_clase = models.CharField(max_length=50, blank=False)
-    
-class Grupo(models.Model):
-    clase = models.OneToOneField(Clase, blank=False, on_delete=models.CASCADE)
-    codigo_grupo = models.CharField(max_length=2, blank=False)
-    nom_grupo = models.CharField(max_length=50, blank=False)
-
-class Cuenta(models.Model):
-    grupo = models.OneToOneField(Grupo, blank=False, on_delete=models.CASCADE)
-    codCuenta = models.CharField(max_length=11, blank=False, primary_key=True)
-    codigo_cuenta = models.CharField(max_length=2, blank=False)
-    codigo_subcuenta = models.CharField(max_length=2)
-    codigo_detalle = models.CharField(max_length=2)
-    codigo_auxiliar = models.CharField(max_length=2)
-    nom_cuenta = models.CharField(max_length=50, blank=False)
->>>>>>> parent of a29ccdf... Revert "Update models.py"
 
 class ControlEfectivo(models.Model):
     idControl = models.AutoField(primary_key=True)
@@ -69,7 +45,6 @@ class ControlEfectivo(models.Model):
     saldoEntrada = models.DecimalField(max_digits=7, decimal_places=2)
     SaldoSalida = models.DecimalField(max_digits=7, decimal_places=2)
     SaldoTotal = models.DecimalField(max_digits=7, decimal_places=2)
-
 
 class TransaccionCV(models.Model):
     idTransaccion = models.AutoField(primary_key=True)
