@@ -34,11 +34,26 @@ class Detallecompra(models.Model):
 
 
 #---------------------------------------------------------------------------------------------------------------
-
+class Clase(models.Model):
+    codigo_clase = models.CharField(max_length=1, blank=False) 
+    nom_clase = models.CharField(max_length=50, blank=False)
+    
+class Grupo(models.Model):
+    clase = models.OneToOneField(Clase, blank=False, on_delete=models.CASCADE)
+    codigo_grupo = models.CharField(max_length=2, blank=False)
+    nom_grupo = models.CharField(max_length=50, blank=False)
+    
 class Cuenta(models.Model):
     codCuenta = models.CharField(max_length=10, primary_key=True)
     nombre = models.CharField(max_length=50)
     tipoCuenta = models.CharField(max_length=35)
+    grupo = models.OneToOneFielde(Grupo, blank=False, on_delete=models.CASCADE)
+    codCuenta = models.CharField(max_length=11, blank=False, primary_key=True)
+    codigo_cuenta = models.CharField(max_length=2, blank=False)
+    codigo_subcuenta = models.CharField(max_length=2)
+    codigo_detalle = models.CharField(max_length=2)
+    codigo_auxiliar = models.CharField(max_length=2)
+    nom_cuenta = models.CharField(max_length=50, blank=False)  
 
 class ControlEfectivo(models.Model):
     idControl = models.AutoField(primary_key=True)
