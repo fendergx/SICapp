@@ -51,7 +51,7 @@ class Grupo(models.Model):
     nom_grupo = models.CharField(max_length=50, blank=False)
 
 class Cuenta(models.Model):
-    grupo = models.OneToOneFielde(Grupo, blank=False, on_delete=models.CASCADE)
+    grupo = models.OneToOneField(Grupo, blank=False, on_delete=models.CASCADE)
     codCuenta = models.CharField(max_length=11, blank=False, primary_key=True)
     codigo_cuenta = models.CharField(max_length=2, blank=False)
     codigo_subcuenta = models.CharField(max_length=2)
