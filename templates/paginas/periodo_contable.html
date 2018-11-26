@@ -51,8 +51,10 @@
                         </form>
                     {% else %}
                         <p>No hay periodo contable activo, registre nuevo periodo contable</p>
-                        <button class="btn btn-default" data-toggle="modal" data-target="#modal_basic">Agregar</button>
-
+                        <form method="post">{% csrf_token %}
+                        <button class="btn btn-default pull-left" data-toggle="modal" >Agregar Automatico</button></form>
+                        <button class="btn btn-default pull-left" data-toggle="modal" data-target="#modal_basic">Agregar manual</button>
+                        <button class="sinbordes" ><span class="fa fa-trash-o fa-2x "></span></button>
                     {% endif %}
 
     </div>
@@ -102,7 +104,7 @@
             var valor1 = fecha.getFullYear();
 
             var valor2=fecha.getMonth()+2;
-            if (valor2==13||valor2>13){
+            if (valor2==13|| valor2>13){
                 valor2=1;
             }
 

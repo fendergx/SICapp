@@ -34,17 +34,18 @@
 
             </ul>
         </li>
+        <li class="xn-openable">
+            <a href="#"><span class="fa fa-table"></span> <span class="xn-text">Inventarios</span></a>
+            <ul>
+                <li><a href="{% url 'inventarios'  %}"><span class="fa fa-image"></span>Materia Prima</a></li>
+                <li><a href="#"><span class="fa fa-image"></span>P. en Proceso</a></li>
+                <li><a href="#"><span class="fa fa-image"></span>P. Terminado</a></li>
+            </ul>
+        </li>
 
         <li class="xn-openable">
             <a href="#"><span class="fa fa-calendar"></span> <span class="xn-text">Planilla de sueldos</span></a>
-            <ul>
-                {% for anio in anios %}
-
-                    <li><a href="{% url 'estados' anio.anio  %}"><span class="fa fa-file"></span> {{ anio.anio }}</a></li>
-                {% endfor %}
-
-
-            </ul>
+            
         </li>
         <li>
             <a href="{% url 'periodoContable'  %}"><span class="fa fa-list-alt"></span> <span class="xn-text">Período Contable</span></a>
@@ -52,7 +53,7 @@
         <li>
             <a href="#"><span class="fa fa-list-alt"></span> <span class="xn-text">Catálogo De Cuentas</span></a>
         </li> 
-                <li class="xn-openable">
+        <li class="xn-openable">
             <a href="#"><span class="fa fa-table"></span> <span class="xn-text">libros</span></a>
             <ul>
                 <li><a href="#"><span class="fa fa-image"></span>Venta</a></li>

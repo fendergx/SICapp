@@ -5,7 +5,7 @@
         <div class="content-frame-top">
             <div class="page-title">
 
-                <h2><span class="fa fa-inbox"></span> Compras  {{ idCompra }}
+                <h2><span class="fa fa-inbox "></span> Compras
                     <small></small>
                 </h2>
             </div>
@@ -13,113 +13,277 @@
         <br> <br> <br> <br> <br> <br>
 
         <div class="col-lg-12">
-            <form class="form-horizontal" role="form" id="compra">
+            <form class="form-horizontal" role="form" id="form_compra" method="post">{% csrf_token %}
 
-                    <div class="form-group pull-right" role="form">
+                <div class="form-group pull-right" role="form">
 
-                        <label class="control-label col-md-2">Fecha</label>
-                        <div class="col-md-5">
-                            <input class="form-control datepicker" value="" type="text">
-                        </div>
-
-
-
-                    </div><br><br><br>
-
-                    <div class="form-group " role="form">
-                        <label class="control-label col-md-2">Termino de compra</label>
-                        <div class="col-md-4">
-                            <select class="form-control select">
-                                <option>Credito</option>
-                                <option>Contado</option>
-                            </select>
-
-
-                        </div>
-                        <label class="control-label col-lg-3">Tipo de compra</label>
-                        <div class=" col-lg-3">
-                            <select class="form-control select">
-                                <option>Compra Exenta</option>
-                                <option>Compra Gravada</option>
-                            </select>
-
-
-                        </div>
+                    <label class="control-label col-md-2">Fecha</label>
+                    <div class="col-md-5">
+                        <input class="form-control datepicker" value="" type="text">
                     </div>
 
 
-                    <div class="form-group" role="form">
-                        <label class="control-label col-md-2">Nombre</label>
-                        <div class="col-md-6">
-                            <input class="form-control" value="Some text value..." type="text">
-                        </div>
-                        <label class="control-label col-md-1">Plazo</label>
-                        <div class="col-md-3">
-                            <input class="form-control" value="Some text value..." type="text">
-                        </div>
+                </div>
+                <br><br><br>
+
+                <div class="form-group " role="form">
+                    <label class="control-label col-md-2">Tipo de compra</label>
+                    <div class="col-md-4">
+                        <select class="form-control select" id="tipoCompra"  name="tipoCompra" onchange="terminoCompra()">
+                             <option value="Contado">Contado</option>
+                             <option value="Credito">Credito</option>
+                        </select>
+
+									  
 
                     </div>
+                    <label class="control-label col-lg-3">Termino de compra</label>
+                    <div class=" col-lg-3">
+                        <select class="form-control select" id="termino" name="termino">
+                            <option value="Compra Gravada">Compra Gravada</option>
+                            <option value="Compra Exenta">Compra Exenta</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="text" hidden value="{{ idCompra }}">
+                <div id="prueba" hidden>
 
-                    <br><br>
+                </div>
+                <div id="tamanio" hidden>
+
+                </div>
+																					
+											   
+																
+															  
+															   
+									 
+
+                <div class="form-group" role="form" id="idProveedor" hidden >
+                    <label class="control-label col-md-2">Nombre</label>
+                    <div class=" col-lg-3">
+
+                    <select class="form-control select" id="proveedor" name="proveedor">
+                         {% for prov in proveedores %}
+                            <option value="{{ prov.razonSocial }}">{{ prov.razonSocial }}</option>
+                        {% endfor %}
+                        </select>
+
+                    </div>
+                    <label class="control-label col-md-1">Plazo</label>
+                    <div class=" col-lg-3">
+                        <select class="form-control select" id="plazo" name="plazo">
+                            <option value="15 Dias">15 Dias</option>
+                            <option value="30 Dias">30 Dias</option>
+                            <option value="45 Dias">45 Dias</option>
+                            <option value="60 Dias">60 Dias</option>
+                        </select>
+                    </div>
+                     <br> <br> <br>
 
 
-                    <div class="panel panel-default">
+														
+																			
+                </div>
+																							   
+							  
+																		   
+											  
+																							   
+							  
+
+						  
+
+                <div class="panel panel-default">
 
 
-                        <div class="panel-body panel-body-table">
+                    <div class="panel-body panel-body-table">
 
 
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Cantidad</th>
-                                    <th>Concepto</th>
-                                    <th>Costo</th>
-                                    <th>Subtotal</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <div class="col-md-6">
-                                        <td style="width: 13%"></td>
-                                        <td style="width: 61%"></td>
-                                        <td style="width: 13%"></td>
-                                        <td style="width: 13%"></td>
-                                    </div>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td style=""> IVA</td>
-                                    <td>12</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: hidden"></td>
-                                    <td style="border: hidden"></td>
-                                    <td style="border: hidden"> Total</td>
-                                    <td style="border: hidden">12</td>
-                                </tr>
+                        <table class="table" id="tblResult">
+                            <thead>
+                            <tr>
+                                <th>Cantidad</th>
+                                <th>Concepto</th>
+                                <th>Costo</th>
+                                <th>Subtotal</th>
+                                 <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody id="agregados">
 
-                                </tbody>
-                            </table>
-                        </div></div>
 
+												 
+									   
+									
+                            </tbody>
+                        </table>
+												  
+													 
+									 
+										
+									   
+									
+                    </div>
+																	
+																	
+																	
+																	
+                </div>
+									 
+									
+											 
+											 
+														  
+											   
+									 
+									
+																	
+																	
+																		  
+																	  
+									 
+
+										
+									
+									
+
+                <br><br><br>
+                <div align="center">
+
+                    <button class="btn btn-primary pull-right" onclick="prueba()">Guardar</button>
+
+                </div>
             </form>
+            <button class="btn btn-default pull-right" data-toggle="modal" data-target="#modal_basic" >Agregar compra</button>
+            <br><br><br>
 
         </div>
     </div>
 
 {% endblock %}
 {% block footer %}
+    <div class="modal" id="modal_basic" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="defModalHead">Compra de materia prima</h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <label class="col-md-3 ">Cantidad</label>
+                    <div class="col-md-7">
+                        <input class="form-control" id="cantidad" name="cantidad" value="" type="text">
+                    </div>
+                    <br><br>
+                    <label class="control-label col-md-3">concepto</label>
+                    <div class="col-md-7">
+
+                        <select class="form-control select" id="concepto" name="concepto">
+                            <option value="Plastico PEHD">Plastico PEHD</option>
+                            <option value="Plastico PET">Plastico PET</option>
+                            <option value="Plastico PELD">Plastico PELD</option>
+                        </select>
+                    </div>
+                    <br>
+                    <br><label class="control-label col-md-3">Precio</label>
+                    <div class="col-md-7">
+                        <input class="form-control " id="precio" name="precio" value="" type="text">
+                    </div>
+
+                    <br><br><br><br>
+                    <input type="number" name="control" id="control" value="0" hidden="true">
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+                        <button onclick="javascript:agregar()" class="btn btn-default" data-dismiss="modal">agregar producto </button>
+
+                </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
-    function validar() {
-        var form =$("#compra")
-        var valor1 = $("#cant").val();
-        var valor2=$("#precio").val();
-        var total= valor1*valor2;
+        var cantida=[];
+        var cncp=[]
+        var prec=[]
+									  
+								 
 
 
-    }
+        function agregar() {
+            var control = document.getElementById('control');
+            var cantidad = $("#cantidad").val();
+            var concepto = $("#concepto").val();
+            var precio = $("#precio").val();
+            var myTable = $("#tblResult tbody");
 
-        </script>
+
+
+            control.value = parseInt(control.value) + 1;
+            var valor_control = control.value;
+            var elemento_para_agregar =
+                `
+				<tr id="fila${valor_control}">
+                    <td><input type="text" value="${cantidad}" class="sinbordes" id="cantidad${valor_control}"></td>
+                    <td><input type="text" value="${concepto}" class="sinbordes"  id="concepto${valor_control}"></td>
+                    <td><input type="text" value="${precio}" class="sinbordes" id="precio${valor_control}"></td>
+                    <td><input type="text" value="${precio * cantidad}" class="sinbordes" id="total${valor_control}"></td>
+                    <td><button type="button" class="sinbordes" onclick="eliminar(${valor_control});"><spam class="fa fa-trash-o fa-2x"></spam></button></td>
+
+                </tr>
+				`;
+            cantida[valor_control-1]=cantidad;
+            prec[valor_control-1]=precio;
+            cncp[valor_control-1]=concepto;
+
+            myTable.append(elemento_para_agregar);
+        }
+        function eliminar(idEliminar) {
+            cantida[idEliminar-1]=0;
+            $("#fila" + idEliminar).remove();
+
+        }
+        function prueba() {
+            var form =$("#form_prueba");
+
+            var tamano=cantida.length;
+
+            var k=1;
+            for (i=0;i<tamano;i++){
+                var cantidad=cantida[i];
+                var precio=prec[i];
+                var concepto=cncp[i];
+                tm=k++;
+
+                var elemento_para_agregar =
+                        `
+                            <input type="text" hidden id="cantidad${tm}" name="cantidad${tm}" value="${cantidad}">
+                            <input type="text" hidden id="precio${tm}" name="precio${tm}" value="${precio}">
+                            <input type="text" hidden id="concepto${tm}" name="concepto${tm}" value="${concepto}">
+
+                        `
+                $(elemento_para_agregar).appendTo($('#prueba'));
+                    }
+
+
+            form.submit();
+
+        }
+        function terminoCompra() {
+           var termino =$("#tipoCompra").val();
+            if (termino=="Credito"){
+                $("#idProveedor").show();
+            }
+            else $("#idProveedor").hide();
+
+
+
+        }
+
+    </script>
 {% endblock %}

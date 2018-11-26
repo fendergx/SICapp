@@ -1,0 +1,74 @@
+{% extends "base/base.html" %}
+{% block contenido %}
+     <div class="content-frame">
+        <div class="content-frame-top">
+            <div class="page-title">
+
+                <h2><span class="fa fa-inbox"></span> Inventarios
+                    <small></small>
+                </h2>
+            </div>
+        </div>
+        <br> <br> <br> <br> <br> <br>
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading ui-draggable-handle">
+                    <h3 class="panel-title">Inventario de materia prima</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                            <thead>
+                            <tr>
+
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Entradas</th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Salidas</th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Saldo</th>
+                                <th style="border: hidden"></th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td><
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                            </tr>
+                            {% for inventarios in inventario %}
+                                {% if detalle.tipo in "Materia Prima" %}
+                            <tr>
+                                <td>{{ inventarios.cantEntrada}}</td>
+                                <td>{{ inventarios.precEntrada}}</td>
+                                <td>{{ inventarios.montoEntrada}}</td>
+                                <td>{{ inventarios.cantSalida }}</td>
+                                <td>{{ inventarios.precSalida}}</td>
+                                <td>{{ inventarios.montoSalida}}</td>
+                                <td>{{ inventarios.cantExistencia}}</td>
+                                <td>{{ inventarios.precExistencia}}</td>
+                                <td>{{ inventarios.montoExistencia}}</td>
+                            </tr>
+                                {% endif %}
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+
+
+                        </div>
+                        </div>
+                        </div>
+
+
+    </div>
+{% endblock %}
