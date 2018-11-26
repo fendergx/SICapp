@@ -1,0 +1,28 @@
+div.ever {
+background: rgba(212,228,239,1);
+background: -moz-linear-gradient(left, rgba(212,228,239,1) 0%, rgba(184,209,227,1) 18%, rgba(134,174,204,1) 51%, rgba(134,174,204,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(212,228,239,1)), color-stop(18%, rgba(184,209,227,1)), color-stop(51%, rgba(134,174,204,1)), color-stop(100%, rgba(134,174,204,1)));
+background: -webkit-linear-gradient(left, rgba(212,228,239,1) 0%, rgba(184,209,227,1) 18%, rgba(134,174,204,1) 51%, rgba(134,174,204,1) 100%);
+background: -o-linear-gradient(left, rgba(212,228,239,1) 0%, rgba(184,209,227,1) 18%, rgba(134,174,204,1) 51%, rgba(134,174,204,1) 100%);
+background: -ms-linear-gradient(left, rgba(212,228,239,1) 0%, rgba(184,209,227,1) 18%, rgba(134,174,204,1) 51%, rgba(134,174,204,1) 100%);
+background: linear-gradient(to right, rgba(212,228,239,1) 0%, rgba(184,209,227,1) 18%, rgba(134,174,204,1) 51%, rgba(134,174,204,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4e4ef', endColorstr='#86aecc', GradientType=1 );
+}
+
+div.verde{
+border-radius: 102px 82px 82px 82px;
+-moz-border-radius: 102px 82px 82px 82px;
+-webkit-border-radius: 102px 82px 82px 82px;
+border: 8px solid #000000;
+text-align: center;
+width: 300px;
+
+background: rgba(164,179,87,0.62);
+background: -moz-linear-gradient(left, rgba(164,179,87,0.62) 0%, rgba(156,172,74,0.62) 12%, rgba(117,137,12,0.86) 68%, rgba(117,137,12,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(164,179,87,0.62)), color-stop(12%, rgba(156,172,74,0.62)), color-stop(68%, rgba(117,137,12,0.86)), color-stop(100%, rgba(117,137,12,1)));
+background: -webkit-linear-gradient(left, rgba(164,179,87,0.62) 0%, rgba(156,172,74,0.62) 12%, rgba(117,137,12,0.86) 68%, rgba(117,137,12,1) 100%);
+background: -o-linear-gradient(left, rgba(164,179,87,0.62) 0%, rgba(156,172,74,0.62) 12%, rgba(117,137,12,0.86) 68%, rgba(117,137,12,1) 100%);
+background: -ms-linear-gradient(left, rgba(164,179,87,0.62) 0%, rgba(156,172,74,0.62) 12%, rgba(117,137,12,0.86) 68%, rgba(117,137,12,1) 100%);
+background: linear-gradient(to right, rgba(164,179,87,0.62) 0%, rgba(156,172,74,0.62) 12%, rgba(117,137,12,0.86) 68%, rgba(117,137,12,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4b357', endColorstr='#75890c', GradientType=1 );
+}
