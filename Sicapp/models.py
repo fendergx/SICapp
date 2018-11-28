@@ -69,8 +69,9 @@ class DetalleVenta(models.Model):
 
 class Cuenta(models.Model):
     codCuenta = models.CharField(max_length=10, primary_key=True)
+    codigoN = models.CharField(max_length=8) #Código según NIIF
     nombre = models.CharField(max_length=50)
-    tipoCuenta = models.CharField(max_length=35)
+    tipoCuenta = models.CharField(max_length=25)
 
 class ControlEfectivo(models.Model):
     idControl = models.AutoField(primary_key=True)
