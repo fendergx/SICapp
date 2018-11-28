@@ -1,0 +1,364 @@
+{% extends "base/base.html" %}
+{% block contenido %}
+    <div class="content-frame">
+        <div class="content-frame-top">
+            <div class="page-title">
+                <h2><span class="fa fa-inbox"></span> Inventario de materia prima
+                    <small></small>
+                </h2>
+            </div>
+
+
+        </div>
+
+        <div class="content-frame-left" style="height: 700px;">
+
+            <div class="block">
+                <div class="list-group border-bottom">
+
+                     <button  class="list-group-item col-lg-12" onclick="mostrar1()"><span class="fa fa-inbox"></span>{{ detalleFiguras}}</button>
+                     <button  class="list-group-item col-lg-12"  onclick="mostrar2()"><span class="fa fa-inbox"></span>{{ detalleLosas }}</button>
+                     <button  class="list-group-item col-lg-12"  onclick="mostrar3()"><span class="fa fa-inbox"></span>{{ detalleSillas }}</button>
+                    <button  class="list-group-item col-lg-12"  onclick="mostrar4()"><span class="fa fa-inbox"></span>{{ detalleMesas }}</button>
+                    <button  class="list-group-item col-lg-12"  onclick="mostrar5()"><span class="fa fa-inbox"></span>{{ detalleBancas }}</button>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="content-frame-body" style="height: 760px;">
+            <div class="block">
+                <div class="panel panel-default">
+                    <div class="panel-heading ui-draggable-handle">
+                        <div id="inicial">
+                        <h3 class="panel-title" >Inventario de Productos</h3></div>
+                        <div hidden  id="figuras" >
+                        <h3 class="panel-title">Inventario de  {{ detalleFiguras }} </h3>
+                        </div>
+                        <div id="sillas" hidden>
+                        <h3 class="panel-title">Inventario de  {{ detalleSillas }}</h3>
+                            </div><div id="losas" hidden>
+                        <h3 class="panel-title" >Inventario de  {{ detalleLosas }}</h3></div>
+                        <div id="mesas" hidden>
+                        <h3 class="panel-title" >Inventario de  {{ detalleMesas }}</h3></div>
+                    <div id="bancas" hidden>
+                        <h3 class="panel-title" >Inventario de  {{ detalleBancas }}</h3></div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered" id="idBancas" hidden>
+                            <thead>
+                            <tr>
+
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Entradas</th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Salidas</th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Saldo</th>
+                                <th style="border: hidden"></th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                            </tr>
+                            {% for inventarios in inventario %}
+                                {% if inventarios.detalle == detalleBancas%}
+                                    <tr>
+                                        <td>{{ inventarios.cantEntrada }}</td>
+                                        <td>{{ inventarios.precEntrada }}</td>
+                                        <td>{{ inventarios.montoEntrada }}</td>
+                                        <td>{{ inventarios.cantSalida }}</td>
+                                        <td>{{ inventarios.precSalida }}</td>
+                                        <td>{{ inventarios.montoSalida }}</td>
+                                        <td>{{ inventarios.cantExistencia }}</td>
+                                        <td>{{ inventarios.precExistencia }}</td>
+                                        <td>{{ inventarios.montoExistencia }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered" id="idMesas" hidden>
+                            <thead>
+                            <tr>
+
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Entradas</th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Salidas</th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Saldo</th>
+                                <th style="border: hidden"></th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                            </tr>
+                            {% for inventarios in inventario %}
+
+                                 {% if inventarios.detalle == detalleMesas %}
+                                    <tr >
+                                        <td>{{ inventarios.cantEntrada }}</td>
+                                        <td>{{ inventarios.precEntrada }}</td>
+                                        <td>{{ inventarios.montoEntrada }}</td>
+                                        <td>{{ inventarios.cantSalida }}</td>
+                                        <td>{{ inventarios.precSalida }}</td>
+                                        <td>{{ inventarios.montoSalida }}</td>
+                                        <td>{{ inventarios.cantExistencia }}</td>
+                                        <td>{{ inventarios.precExistencia }}</td>
+                                        <td>{{ inventarios.montoExistencia }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered" id="idLosas" hidden>
+                            <thead>
+                            <tr>
+
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Entradas</th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Salidas</th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Saldo</th>
+                                <th style="border: hidden"></th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                            </tr>
+                            {% for inventarios in inventario %}
+
+                                {% if inventarios.detalle == detalleLosas%}
+                                    <tr>
+                                        <td>{{ inventarios.cantEntrada }}</td>
+                                        <td>{{ inventarios.precEntrada }}</td>
+                                        <td>{{ inventarios.montoEntrada }}</td>
+                                        <td>{{ inventarios.cantSalida }}</td>
+                                        <td>{{ inventarios.precSalida }}</td>
+                                        <td>{{ inventarios.montoSalida }}</td>
+                                        <td>{{ inventarios.cantExistencia }}</td>
+                                        <td>{{ inventarios.precExistencia }}</td>
+                                        <td>{{ inventarios.montoExistencia }}</td>
+                                    </tr>
+                                {% endif %}
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered" id="idSillas" hidden>
+                                <thead>
+                                <tr>
+
+                                    <th style="border: hidden"></th>
+                                    <th style="border: hidden">Entradas</th>
+                                    <th style="border: hidden"></th>
+                                    <th style="border: hidden"></th>
+                                    <th style="border: hidden">Salidas</th>
+                                    <th style="border: hidden"></th>
+                                    <th style="border: hidden"></th>
+                                    <th style="border: hidden">Saldo</th>
+                                    <th style="border: hidden"></th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>Cantidad</td>
+                                    <td>Precio</td>
+                                    <td>Monto</td>
+                                    <td>Cantidad</td>
+                                    <td>Precio</td>
+                                    <td>Monto</td>
+                                    <td>Cantidad</td>
+                                    <td>Precio</td>
+                                    <td>Monto</td>
+                                </tr>
+                                {% for inventarios in inventario %}
+
+                                    {% if inventarios.detalle == detalleSillas%}
+                                        <tr>
+                                            <td>{{ inventarios.cantEntrada }}</td>
+                                            <td>{{ inventarios.precEntrada }}</td>
+                                            <td>{{ inventarios.montoEntrada }}</td>
+                                            <td>{{ inventarios.cantSalida }}</td>
+                                            <td>{{ inventarios.precSalida }}</td>
+                                            <td>{{ inventarios.montoSalida }}</td>
+                                            <td>{{ inventarios.cantExistencia }}</td>
+                                            <td>{{ inventarios.precExistencia }}</td>
+                                            <td>{{ inventarios.montoExistencia }}</td>
+                                        </tr>
+                                    {% endif %}
+
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        <table class="table table-bordered" id="idFiguras" hidden>
+                                <thead>
+                                <tr>
+
+                                    <th style="border: hidden"></th>
+                                    <th style="border: hidden">Entradas</th>
+                                    <th style="border: hidden"></th>
+                                    <th style="border: hidden"></th>
+                                    <th style="border: hidden">Salidas</th>
+                                    <th style="border: hidden"></th>
+                                    <th style="border: hidden"></th>
+                                    <th style="border: hidden">Saldo</th>
+                                    <th style="border: hidden"></th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>Cantidad</td>
+                                    <td>Precio</td>
+                                    <td>Monto</td>
+                                    <td>Cantidad</td>
+                                    <td>Precio</td>
+                                    <td>Monto</td>
+                                    <td>Cantidad</td>
+                                    <td>Precio</td>
+                                    <td>Monto</td>
+                                </tr>
+                                {% for inventarios in inventario %}
+
+                                    {% if inventarios.detalle == detalleFiguras%}
+                                        <tr>
+                                            <td>{{ inventarios.cantEntrada }}</td>
+                                            <td>{{ inventarios.precEntrada }}</td>
+                                            <td>{{ inventarios.montoEntrada }}</td>
+                                            <td>{{ inventarios.cantSalida }}</td>
+                                            <td>{{ inventarios.precSalida }}</td>
+                                            <td>{{ inventarios.montoSalida }}</td>
+                                            <td>{{ inventarios.cantExistencia }}</td>
+                                            <td>{{ inventarios.precExistencia }}</td>
+                                            <td>{{ inventarios.montoExistencia }}</td>
+                                        </tr>
+                                    {% endif %}
+
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+    <script type="text/javascript">
+        function mostrar1() {
+            $("#idBancas").hide();
+            $("#idMesas").hide();
+            $("#idLosas").hide();
+            $("#idSillas").hide();
+            $("#idFiguras").show();
+            $("#mesas").hide();
+            $("#bancas").hide();
+            $("#sillas").hide();
+            $("#figuras").show();
+            $("#losas").hide();
+            $("#inicial").hide();
+
+        }
+        function mostrar2() {
+            $("#idBancas").hide();
+            $("#idMesas").hide();
+            $("#idLosas").show();
+            $("#idSillas").hide();
+            $("#idFiguras").hide();
+            $("#mesas").hide();
+            $("#bancas").hide();
+            $("#sillas").hide();
+            $("#figuras").hide();
+            $("#losas").show();
+            $("#inicial").hide();
+        }
+        function mostrar3() {
+            $("#idBancas").hide();
+            $("#idMesas").hide();
+            $("#idLosas").hide();
+            $("#idSillas").show();
+            $("#idFiguras").hide();
+            $("#mesas").hide();
+            $("#bancas").hide();
+            $("#sillas").show();
+            $("#figuras").hide();
+            $("#losas").hide();
+            $("#inicial").hide();
+
+        }
+        function mostrar4() {
+            $("#idBancas").hide();
+            $("#idMesas").show();
+            $("#idLosas").hide();
+            $("#idSillas").hide();
+            $("#idFiguras").hide();
+            $("#mesas").show();
+            $("#bancas").hide();
+            $("#sillas").hide();
+            $("#figuras").hide();
+            $("#losas").hide();
+            $("#inicial").hide();
+
+        }
+        function mostrar5() {
+            $("#idBancas").show();
+            $("#idMesas").hide();
+            $("#idLosas").hide();
+            $("#idSillas").hide();
+            $("#idFiguras").hide();
+            $("#mesas").hide();
+            $("#bancas").show();
+            $("#sillas").hide();
+            $("#figuras").hide();
+            $("#losas").hide();
+            $("#inicial").hide();
+
+        }
+    </script>
+{% endblock %}

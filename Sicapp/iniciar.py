@@ -58,21 +58,34 @@ def agregarTransaccionCV(concepto,total,compra,tipo,periodo):
     transaccion.periodo=periodo
     transaccion.saldo=total
     transaccion.tipoTransaccion=tipo
-    transaccion.terminoTransacion=compra.terminoCompra
+    transaccion.terminoTransacion=compra.terminoVenta
     transaccion.save()
 
 def agregarControlEfectivo(concepto,compra,periodo):
-    control=ControlEfectivo()
-    control.fecha=compra.fecha
-    control.concepto=concepto
-    control.tipoComprobante="Factura"
-    control.cuenta=Cuenta.objects.get(nombre="Caja general")
-    control.saldoSalida=compra.total
-    control.saldoEntrada=0
-    saldoAnterior=float(ControlEfectivo.objects.latest('idControl').saldoTotal)
-    control.saldoTotal=saldoAnterior-control.saldoSalida
-    control.periodo=periodo
-    control.save()
+    if concepto=="Compra materia prima":
+        control=ControlEfectivo()
+        control.fecha=compra.fecha
+        control.concepto=concepto
+        control.tipoComprobante="Factura"
+        control.cuenta=Cuenta.objects.get(nombre="Caja general")
+        control.saldoSalida=compra.total
+        control.saldoEntrada=0
+        saldoAnterior=float(ControlEfectivo.objects.latest('idControl').saldoTotal)
+        control.saldoTotal=saldoAnterior-control.saldoSalida
+        control.periodo=periodo
+        control.save()
+    else:
+        control = ControlEfectivo()
+        control.fecha = compra.fecha
+        control.concepto = concepto
+        control.tipoComprobante = "Factura"
+        control.cuenta = Cuenta.objects.get(nombre="Caja general")
+        control.saldoSalida = compra.total
+        control.saldoEntrada = compra.total
+        saldoAnterior = float(ControlEfectivo.objects.latest('idControl').saldoTotal)
+        control.saldoTotal = saldoAnterior + control.saldoSalida
+        control.periodo = periodo
+        control.save()
 
 def agregarDiario(cuenta,descripcion,cargo,abono):
     libroDiario=LibroDiario()
@@ -84,65 +97,126 @@ def agregarDiario(cuenta,descripcion,cargo,abono):
     libroDiario.abono=abono
     libroDiario.save()
 
+def iniciarControl():
+    periodo=PeriodoContable.objects.get(activo=True)
+    ControlEfectivo.objects.create(fecha=date.today(),tipoComprobante="caja",concepto="inicio",saldoEntrada=0,saldoSalida=0,saldoTotal=10000,periodo=periodo)
+
+
 def iniciarDetalleKardex():
     detalleKardex.objects.create(tipo="Materia Prima",nombre="Plastico PET",fecha=date.today())
+    detalleKardex.objects.create(tipo="Materia Prima", nombre="Plastico PEHD", fecha=date.today())
+    detalleKardex.objects.create(tipo="Materia Prima", nombre="Plastico PELD", fecha=date.today())
+    detalleKardex.objects.create(tipo="Producto Terminado", nombre="Mesas para exterior", fecha=date.today())
+    detalleKardex.objects.create(tipo="Producto Terminado", nombre="Bancas para exterior", fecha=date.today())
+    detalleKardex.objects.create(tipo="Producto Terminado", nombre="Sillas de playa", fecha=date.today())
+    detalleKardex.objects.create(tipo="Producto Terminado", nombre="Figuras", fecha=date.today())
+    detalleKardex.objects.create(tipo="Producto Terminado", nombre="Losas plasticas", fecha=date.today())
+
+def iniciarKardex():
+    detalle1=detalleKardex.objects.get(nombre="Plastico PET")
+    detalle2 = detalleKardex.objects.get(nombre="Plastico PEHD")
+    detalle3 = detalleKardex.objects.get(nombre="Plastico PELD")
+    detalle4 = detalleKardex.objects.get(nombre="Losas plasticas")
+    detalle5 = detalleKardex.objects.get(nombre="Figuras")
+    detalle6 = detalleKardex.objects.get(nombre="Sillas de playa")
+    detalle7 = detalleKardex.objects.get(nombre="Bancas para exterior")
+    detalle8 = detalleKardex.objects.get(nombre="Mesas para exterior")
+    Kardex.objects.create(fecha=date.today(),cantEntrada = 0,precEntrada = 0,montoEntrada = 0,cantSalida = 0,precSalida = 0,
+                          montoSalida = 0,cantExistencia = 160,precExistencia = 0.6,montoExistencia = 160 * 0.6,detalle=detalle1)
+
+    Kardex.objects.create(fecha=date.today(), cantEntrada=0, precEntrada=0, montoEntrada=0, cantSalida=0, precSalida=0,
+                          montoSalida=0, cantExistencia=160, precExistencia=0.6, montoExistencia=160 * 0.6,     detalle=detalle2)
 
 
+    Kardex.objects.create(fecha=date.today(), cantEntrada=0, precEntrada=0, montoEntrada=0, cantSalida=0, precSalida=0,
+                      montoSalida=0, cantExistencia=160, precExistencia=0.6, montoExistencia=160 * 0.6,  detalle=detalle3)
+    Kardex.objects.create(fecha=date.today(), cantEntrada=0, precEntrada=0, montoEntrada=0, cantSalida=0, precSalida=0,
+                          montoSalida=0, cantExistencia=6, precExistencia=3.5, montoExistencia=6 * 3.5,
+                          detalle=detalle4)
 
-def agregarKardex(cantEntrada,precEntrada,cantSalida,precSalida):
+    Kardex.objects.create(fecha=date.today(), cantEntrada=0, precEntrada=0, montoEntrada=0, cantSalida=0, precSalida=0,
+                          montoSalida=0, cantExistencia=10, precExistencia=1, montoExistencia=10 * 1,
+                          detalle=detalle5)
+    Kardex.objects.create(fecha=date.today(), cantEntrada=0, precEntrada=0, montoEntrada=0, cantSalida=0, precSalida=0,
+                          montoSalida=0, cantExistencia=2, precExistencia=18, montoExistencia=2 * 18,
+                          detalle=detalle6)
+    Kardex.objects.create(fecha=date.today(), cantEntrada=0, precEntrada=0, montoEntrada=0, cantSalida=0, precSalida=0,
+                          montoSalida=0, cantExistencia=5, precExistencia=7, montoExistencia=5* 7,
+                          detalle=detalle7)
+    Kardex.objects.create(fecha=date.today(), cantEntrada=0, precEntrada=0, montoEntrada=0, cantSalida=0, precSalida=0,
+                          montoSalida=0, cantExistencia=1, precExistencia=12, montoExistencia=1*12,
+                          detalle=detalle8)
+
+
+def agregarKardex(cantEntrada,precEntrada,cantSalida,precSalida,concepto):
     kardex=Kardex()
-    kardexAnterior = Kardex.objects.all()
+    detalle = detalleKardex.objects.get(nombre=concepto)
 
-    if len(kardexAnterior)==0:
-        kardex.fecha=date.today()
-        kardex.cantEntrada=0
-        kardex.precEntrada=0
-        kardex.montoEntrada=0
-        kardex.cantSalida=0
-        kardex.precSalida=0
-        kardex.montoSalida=0
-        kardex.cantExistencia=160
-        kardex.precExistencia=0.6
-        kardex.montoExistencia=kardex.cantExistencia*kardex.precExistencia
-        detalle=detalleKardex.objects.filter(tipo="Materia Prima")
-        if len(detalle)==0:
-            iniciarDetalleKardex()
-            detalle = detalleKardex.objects.get(tipo="Materia Prima")
-        Kardex.detalle=detalle
-        kardex.save()
+    print("detalle")
+								 
+							
+							
+							 
+						   
+						   
+							
+								 
+								 
+																		  
+    print(detalle)
+    print("Concepto")
+    print(concepto)
+
+    ultimo = Kardex.objects.filter(detalle=detalle).latest('idKardex')
+    print("el ultimo")
+
+    print(ultimo.idKardex)
+    print(cantEntrada)
     if cantEntrada!=0:
-        kardex.fecha = date.today()
-        kardexAnterior = Kardex.objects.latest('idKardex')
-        kardex.cantEntrada = cantEntrada
-        kardex.precEntrada = precEntrada
-        kardex.montoEntrada = float(cantEntrada)*float(precEntrada)
-        kardex.cantSalida =0
-        kardex.precSalida = 0
-        kardex.montoSalida = 0
-        kardex.cantExistencia = float(kardexAnterior.cantExistencia)+float(cantEntrada)
-        kardex.montoExistencia = float(kardexAnterior.montoExistencia)+float(kardex.montoEntrada)
-        kardex.precExistencia =kardex.montoExistencia/kardex.cantExistencia
+        kardexGuardar=Kardex()
+        kardexGuardar.fecha = date.today()
+        kardexGuardar.cantEntrada = cantEntrada
+        kardexGuardar.precEntrada = precEntrada
+        kardexGuardar.montoEntrada = float(cantEntrada)*float(precEntrada)
+        kardexGuardar.cantSalida =0
+        kardexGuardar.precSalida = 0
+        kardexGuardar.montoSalida = 0
+        kardexGuardar.cantExistencia = float(ultimo.cantExistencia)+float(cantEntrada)
+        kardexGuardar.montoExistencia = float(ultimo.montoExistencia)+float(kardexGuardar.montoEntrada)
+        kardexGuardar.precExistencia =kardexGuardar.montoExistencia/kardexGuardar.cantExistencia
+        kardexGuardar.detalle = detalle
+        kardexGuardar.save()
     else:
+
         kardex.fecha = date.today()
         kardex.cantEntrada = 0
         kardex.precEntrada = 0
         kardex.montoEntrada = 0
         kardex.cantSalida = cantSalida
-        kardex.precSalida = precSalida
-        kardex.montoSalida = float(cantSalida)*float(precSalida)
-        kardex.cantExistencia = float(kardexAnterior.cantExistencia) - float(cantSalida)
-        kardex.precExistencia = precSalida
-        kardex.montoExistencia = float(kardex.cantExistencia)*float(precSalida)
-    detalle = detalleKardex.objects.filter(tipo="Materia Prima")
-    if len(detalle) == 0:
-        iniciarDetalleKardex()
-        detalle = detalleKardex.objects.get(tipo="Materia Prima")
-    Kardex.detalle = detalle
-    kardex.save()
+        kardex.precSalida = ultimo.precExistencia
+        kardex.montoSalida = float(cantSalida)*float(ultimo.precExistencia)
+        kardex.cantExistencia = float(ultimo.cantExistencia) - float(cantSalida)
+        kardex.precExistencia = ultimo.precExistencia
+        kardex.montoExistencia = float(kardex.cantExistencia)*float(ultimo.precExistencia)
+        kardex.detalle = detalle
+        print(kardex.idKardex)
+        kardex.save()
+		
+def iniciarVenta():
+    venta = Venta()
+    venta.fecha = date.today()
+    venta.iva = 0
+    venta.total=0
+    venta.terminoCompra="Venta Gravada"
+    venta.tipoCompra="Contado"
+    venta.periodoContable = 1
+    venta.save()
 
+    return venta.idVenta
 
-
-
-
-
-
+def iniciarClientes():
+    Cliente.objects.create(nrc="215",razonSocial="Mikkel SS",direccion="Urbanizacion Majuca, Cuscatanciongo, San Salvador")
+    Cliente.objects.create(nrc="348", razonSocial="Jericho Barrons", direccion="Carretera a Agua Caliente, Kilometro 5 1/2, Soyapango, San Salvador")
+    Cliente.objects.create(nrc="284", razonSocial="MacKayla Lane", direccion="Col La Rabida 4 Av. Nte No 1829, San Salvador")
+    Cliente.objects.create(nrc="106", razonSocial="Danielle O'Maley", direccion="Km 24 1/2 carretera al puerto de La Libertad, Zaragoza")
+    Cliente.objects.create(nrc="478", razonSocial="Ariana D", direccion="Km 17 Carretera a Quezaltepeque calle de Apopa a Nejapa San Salvador")

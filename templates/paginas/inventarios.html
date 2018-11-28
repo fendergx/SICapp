@@ -1,22 +1,90 @@
 {% extends "base/base.html" %}
 {% block contenido %}
-     <div class="content-frame">
+    <div class="content-frame">
         <div class="content-frame-top">
             <div class="page-title">
-
-                <h2><span class="fa fa-inbox"></span> Inventarios
+                <h2><span class="fa fa-inbox"></span> Inventario de materia prima
                     <small></small>
                 </h2>
             </div>
+
+
         </div>
-        <br> <br> <br> <br> <br> <br>
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading ui-draggable-handle">
-                    <h3 class="panel-title">Inventario de materia prima</h3>
+
+        <div class="content-frame-left" style="height: 700px;">
+
+            <div class="block">
+                <div class="list-group border-bottom">
+
+                     <button  class="list-group-item col-lg-12" onclick="mostrar1()"><span class="fa fa-inbox"></span>{{ detallePet }}</button>
+                     <button  class="list-group-item col-lg-12"  onclick="mostrar2()"><span class="fa fa-inbox"></span>{{ detallePehd }}</button>
+                     <button  class="list-group-item col-lg-12"  onclick="mostrar3()"><span class="fa fa-inbox"></span>{{ detallePeld }}</button>
                 </div>
-                <div class="panel-body">
-                    <table class="table table-bordered">
+            </div>
+
+        </div>
+
+        <div class="content-frame-body" style="height: 760px;">
+            <div class="block">
+                <div class="panel panel-default">
+                    <div class="panel-heading ui-draggable-handle">
+                        <div id="inicial">
+                        <h3 class="panel-title" >Inventario de materia prima</h3></div>
+                        <div hidden  id="pet" >
+                        <h3 class="panel-title">Inventario de materia prima {{ detallePet }} </h3>
+                        </div>
+                        <div id="pehd" hidden>
+                        <h3 class="panel-title">Inventario de materia prima {{ detallePehd }}</h3>
+                            </div><div id="peld" hidden>
+                        <h3 class="panel-title" >Inventario de materia prima {{ detallePeld }}</h3></div>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered" id="idPeld" hidden>
+                            <thead>
+                            <tr>
+
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Entradas</th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Salidas</th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Saldo</th>
+                                <th style="border: hidden"></th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                            </tr>
+                            {% for inventarios in inventario %}
+                                {% if inventarios.detalle == detallePeld %}
+                                    <tr>
+                                        <td>{{ inventarios.cantEntrada }}</td>
+                                        <td>{{ inventarios.precEntrada }}</td>
+                                        <td>{{ inventarios.montoEntrada }}</td>
+                                        <td>{{ inventarios.cantSalida }}</td>
+                                        <td>{{ inventarios.precSalida }}</td>
+                                        <td>{{ inventarios.montoSalida }}</td>
+                                        <td>{{ inventarios.cantExistencia }}</td>
+                                        <td>{{ inventarios.precExistencia }}</td>
+                                        <td>{{ inventarios.montoExistencia }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered" id="idPet" hidden>
                             <thead>
                             <tr>
 
@@ -40,35 +108,162 @@
                                 <td>Monto</td>
                                 <td>Cantidad</td>
                                 <td>Precio</td>
-                                <td>Monto</td><
+                                <td>Monto</td>
                                 <td>Cantidad</td>
                                 <td>Precio</td>
                                 <td>Monto</td>
                             </tr>
                             {% for inventarios in inventario %}
-                                {% if detalle.tipo in "Materia Prima" %}
-                            <tr>
-                                <td>{{ inventarios.cantEntrada}}</td>
-                                <td>{{ inventarios.precEntrada}}</td>
-                                <td>{{ inventarios.montoEntrada}}</td>
-                                <td>{{ inventarios.cantSalida }}</td>
-                                <td>{{ inventarios.precSalida}}</td>
-                                <td>{{ inventarios.montoSalida}}</td>
-                                <td>{{ inventarios.cantExistencia}}</td>
-                                <td>{{ inventarios.precExistencia}}</td>
-                                <td>{{ inventarios.montoExistencia}}</td>
-                            </tr>
+
+                                 {% if inventarios.detalle == detallePet %}
+                                    <tr >
+                                        <td>{{ inventarios.cantEntrada }}</td>
+                                        <td>{{ inventarios.precEntrada }}</td>
+                                        <td>{{ inventarios.montoEntrada }}</td>
+                                        <td>{{ inventarios.cantSalida }}</td>
+                                        <td>{{ inventarios.precSalida }}</td>
+                                        <td>{{ inventarios.montoSalida }}</td>
+                                        <td>{{ inventarios.cantExistencia }}</td>
+                                        <td>{{ inventarios.precExistencia }}</td>
+                                        <td>{{ inventarios.montoExistencia }}</td>
+                                    </tr>
                                 {% endif %}
                             {% endfor %}
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered" id="idPehd" hidden>
+                            <thead>
+                            <tr>
 
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Entradas</th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Salidas</th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden"></th>
+                                <th style="border: hidden">Saldo</th>
+                                <th style="border: hidden"></th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                            </tr>
+                            {% for inventarios in inventario %}
+
+                                {% if inventarios.detalle == detallePehd %}
+                                    <tr>
+                                        <td>{{ inventarios.cantEntrada }}</td>
+                                        <td>{{ inventarios.precEntrada }}</td>
+                                        <td>{{ inventarios.montoEntrada }}</td>
+                                        <td>{{ inventarios.cantSalida }}</td>
+                                        <td>{{ inventarios.precSalida }}</td>
+                                        <td>{{ inventarios.montoSalida }}</td>
+                                        <td>{{ inventarios.cantExistencia }}</td>
+                                        <td>{{ inventarios.precExistencia }}</td>
+                                        <td>{{ inventarios.montoExistencia }}</td>
+                                    </tr>
+                                {% endif %}
+
+                            {% endfor %}
                             </tbody>
                         </table>
 
-
-                        </div>
-                        </div>
-                        </div>
-
-
+                     <button class="btn btn-default pull-right" data-toggle="modal" data-target="#modal_basic" >Agregar compra</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+{% endblock %}
+{% block footer %}
+     <div class="modal" id="modal_basic" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="defModalHead">Orden de fabricacion de productos</h4>
+                </div>
+                <div class="modal-body">
+                     <form method="post" class="form-horizontal" id="form_orden">{% csrf_token %}
+                    <label class="col-md-3 ">Cantidad</label>
+                        <div class="col-md-7">
+                            <input class="form-control" id="cantidad" name="cantidad" value="" type="text">
+                        </div>
+                        <br><br>
+                        <label class="control-label col-md-3">Producto</label>
+                        <div class="col-md-7">
+
+                            <select class="form-control select" id="producto" name="producto">
+                                <option value="Mesas para exterior">Mesa para exterior</option>
+                                <option value="Bancas para exterior">Banca para exterior</option>
+                                <option value="Sillas de playa">Silla de playa</option>
+                                <option value="Figuras">Figuras pequeñas</option>
+                                <option value="Losas plasticas">Losas plasticas</option>
+                            </select>
+                        </div>
+                    <br>
+
+                    <br><br><br><br>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary " onclick="guardar()">Guardar</button>
+                    </div>
+
+                </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function mostrar1() {
+            $("#idPeld").hide();
+            $("#idPehd").hide();
+            $("#idPet").show();
+            $("#peld").hide();
+            $("#pehd").hide();
+            $("#pet").show();
+            $("#inicial").hide();
+
+        }
+        function mostrar2() {
+            $("#idPeld").hide();
+            $("#idPehd").show();
+            $("#idPet").hide();
+            $("#peld").hide();
+            $("#pehd").show();
+            $("#pet").hide();
+            $("#inicial").hide();
+
+        }
+        function mostrar3() {
+            $("#idPeld").show();
+            $("#idPehd").hide();
+            $("#idPet").hide();
+            $("#peld").hide();
+            $("#pehd").show();
+            $("#pet").hide();
+            $("#inicial").hide();
+
+        }
+        function guardar() {
+            var form =$("#form_orden");
+            form.submit();
+
+        }
+    </script>
 {% endblock %}

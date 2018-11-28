@@ -9,6 +9,12 @@ class Proveedor(models.Model):
     direccion = models.CharField(max_length=200, null=False)
     estado = models.BooleanField(default=True)  # Activo o Inactivo
 
+class Cliente(models.Model):
+    idCliente = models.AutoField(primary_key=True)
+    nrc = models.CharField(max_length=100, null=False)
+    razonSocial = models.CharField(max_length=100, null=False)
+    direccion = models.CharField(max_length=200, null=False)
+    estado = models.BooleanField(default=True)  # Activo o Inactivo
 
 class PeriodoContable(models.Model):
     idPeriodo=models.AutoField(primary_key=True)
@@ -16,7 +22,7 @@ class PeriodoContable(models.Model):
     fechaFin = models.DateField()
     activo=models.BooleanField(default=True)
     anio = models.IntegerField()
-    mes = models.IntegerField(null=True)
+    mes = models.IntegerField(null=True,default=1)
 	
 	
 class Compra(models.Model):
@@ -37,6 +43,27 @@ class Detallecompra(models.Model):
     compra = models.ForeignKey(Compra, on_delete=models.CASCADE, default=1)
     cantidad = models.IntegerField()
     concepto = models.CharField(max_length=100, null=False)
+    precio = models.DecimalField(max_digits=8, decimal_places=2)
+    total = models.DecimalField(max_digits=8, decimal_places=2)
+
+class Venta(models.Model):
+    idVenta = models.AutoField(primary_key=True)
+    fecha = models.DateField()
+    terminoVenta = models.CharField(max_length=100, null=False,default="Compra Gravada")  # Exenta o gravada
+    tipoVenta = models.CharField(max_length=100, null=False, default="Contado")  # Credito o Contado
+    cliente = models.CharField( max_length=5,null=True)
+    plazo = models.CharField(max_length=100, null=True)
+    iva = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    total = models.DecimalField(max_digits=8, decimal_places=2)
+    estado = models.BooleanField(default=False)
+    periodoCon=models.ForeignKey(PeriodoContable, on_delete=models.CASCADE,default=3)
+    def __int__(self): return self.idVenta
+
+class DetalleVenta(models.Model):
+    idDetalleVenta = models.AutoField(primary_key=True)
+    venta= models.ForeignKey(Venta, on_delete=models.CASCADE, default=1)
+    cantidad = models.IntegerField()
+    producto = models.CharField(max_length=100, null=False)
     precio = models.DecimalField(max_digits=8, decimal_places=2)
     total = models.DecimalField(max_digits=8, decimal_places=2)
 
@@ -101,10 +128,11 @@ class CostoUnitario(models.Model):
 
 class detalleKardex(models.Model):
     idDetalle = models.AutoField(primary_key=True)
-    tipo = models.CharField(max_length=4)
+    tipo = models.CharField(max_length=100)
     nombre = models.CharField(max_length=100)
     fecha = models.DateField()
 
+    def __str__(self): return self.nombre
 
 class Kardex(models.Model):
     idKardex = models.AutoField(primary_key=True)

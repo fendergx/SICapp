@@ -16,6 +16,12 @@
 
 
 /* PREDEFINED CLASSES */
+.sinbordes{
+background-color: #f;
+border: 0;
+}
+
+
 .clearfix {
   zoom: 1;
 }

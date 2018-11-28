@@ -13,6 +13,24 @@ from .forms import EntradaForm
 #def probando(request):return render(request, "index.html")
 
 def probando(request):
+    periodo=PeriodoContable.objects.all()
+    if len(periodo)==0:
+        iniciarPeriodo()
+    proveedor=Proveedor.objects.all()
+    if len(proveedor)==0:
+        iniciarProveedor()
+    clientes=Cliente.objects.all()
+    if len(clientes)==0:
+        iniciarClientes()
+    detalle=detalleKardex.objects.all()
+    if len(detalle)==0:
+        iniciarDetalleKardex()
+    kardex=Kardex.objects.all()
+    if len(kardex)==0:
+        iniciarKardex()
+    controlEfectivo=ControlEfectivo.objects.all()
+    if len(controlEfectivo)==0:
+        iniciarControl()
     return render(request,"paginas/index.html",{'anios_esta':PeriodoContable.objects.raw('select * from Sicapp_PeriodoContable group by anio order by anio desc  ')})
 
 def estadosFinancieros(request, id_estados):
@@ -72,7 +90,7 @@ def compras(request):
                     detalle.save()
                     cuenta=Cuenta.objects.get(nombre=concepto)
                     agregarDiario(cuenta,"compra",subTotal,0)
-                    agregarKardex(cantidad,precio,0,0)
+                    agregarKardex(cantidad,precio,0,0,concepto)
                     contador=contador+1
 
 
@@ -80,8 +98,13 @@ def compras(request):
                 compraActualizar.iva=total*0.13
                 cuenta = Cuenta.objects.get(nombre="IVA")
                 agregarDiario(cuenta, "compra", compraActualizar.iva, 0)
-            compraActualizar.total=total+compraActualizar.iva
-
+                compraActualizar.total=total+compraActualizar.iva
+            else:
+            	compraActualizar.iva=total*0.13
+                cuenta = Cuenta.objects.get(nombre="IVA")
+                agregarDiario(cuenta, "compra", compraActualizar.iva, 0)
+                compraActualizar.total=total+compraActualizar.iva
+                
             if compraActualizar.total!=0:
                 compraActualizar.estado=True
             compraActualizar.periodoContable=periodoC
@@ -109,11 +132,103 @@ def compras(request):
 
 def ventas(request):
     anios_estados = PeriodoContable.objects.raw('select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
-    #c=iniciarCompra()
+    c=iniciarVenta()
+    clientes = Cliente.objects.all()
+    det=detalleKardex.objects.get(nombre="Losas plasticas")
+    precioL=Kardex.objects.filter(detalle=det).latest('idKardex')
+    det = detalleKardex.objects.get(nombre="Figuras")
+    precioF = Kardex.objects.filter(detalle=det).latest('idKardex')
+    det = detalleKardex.objects.get(nombre="Sillas de playa")
+    precioS = Kardex.objects.filter(detalle=det).latest('idKardex')
+    det = detalleKardex.objects.get(nombre="Bancas para exterior")
+    precioB = Kardex.objects.filter(detalle=det).latest('idKardex')
+    det = detalleKardex.objects.get(nombre="Mesas para exterior")
+    precioM = Kardex.objects.filter(detalle=det).latest('idKardex')
+
+
+    if len(clientes) == 0:
+        iniciarClientes()
+        clientes = Cliente.objects.all()
+
+    try:
+        periodoC = PeriodoContable.objects.get(activo=True)
+    except PeriodoContable.DoesNotExist:
+        periodoC = None
+
+    if periodoC == None:
+        iniciarPeriodo()
+        periodoC = PeriodoContable.objects.get(activo=True)
+
+    if periodoC != None:
+        if request.POST:
+            ventaActualizar = Venta.objects.get(idVenta=c)
+            ventaActualizar.terminoVenta = request.POST.get("termino")
+            ventaActualizar.tipoVenta = request.POST.get("tipoVenta")
+            if ventaActualizar.tipoVenta == "Credito":
+                ventaActualizar.cliente = request.POST.get("idCliente")
+                ventaActualizar.plazo = request.POST.get("plazo")
+
+            contador = 0
+            total = 0
+            cantidadProd = 0
+            for i in range(1, 12):
+
+                cantidad = request.POST.get("cantidad" + str(i))
+
+                idVenta = Venta.objects.get(idVenta=c)
+
+                if cantidad != "0" and cantidad != None:
+                    concepto = request.POST.get("concepto" + str(i))
+                    precio = request.POST.get("precio" + str(i))
+                    det = detalleKardex.objects.get(nombre=concepto)
+                    prec = Kardex.objects.filter(detalle=det).latest('idKardex')
+
+                    subTotal = int(float(prec.precExistencia)) * int(float(cantidad))
+                    cantidadProd = cantidadProd + int(float(cantidad))
+                    total = total + subTotal
+                    detalle = DetalleVenta(cantidad=cantidad, producto=concepto, precio=prec.precExistencia, total=subTotal,
+                                            venta=idVenta)
+                    detalle.save()
+                    cuenta = Cuenta.objects.get(nombre=concepto)
+                    agregarDiario(cuenta, "Venta", 0, subTotal)
+                    agregarKardex( 0, 0,cantidad, prec.precExistencia, concepto)
+                    contador = contador + 1
+
+            if ventaActualizar.terminoVenta == "Venta Gravada":
+                ventaActualizar.iva = total * 0.13
+                cuenta = Cuenta.objects.get(nombre="IVA por pagar")
+                agregarDiario(cuenta, "Venta", 0, ventaActualizar.iva)
+                ventaActualizar.total = total + ventaActualizar.iva
+            else:
+            	ventaActualizar.iva = total * 0
+                cuenta = Cuenta.objects.get(nombre="IVA por pagar")
+                agregarDiario(cuenta, "Venta", 0, ventaActualizar.iva)
+                ventaActualizar.total = total + ventaActualizar.iva
+
+            if ventaActualizar.total != 0:
+                ventaActualizar.estado = True
+                ventaActualizar.periodoContable = periodoC
+            if ventaActualizar.tipoVenta == "Credito":
+                agregarTransaccionCV("Venta de producto", total, ventaActualizar, "Venta", periodoC)
+                cuenta = Cuenta.objects.get(nombre="Clientes")
+                agregarDiario(cuenta, "Venta",  ventaActualizar.total,0)
+            else:
+                agregarControlEfectivo("Venta Productos", ventaActualizar, periodoC)
+                cuenta = Cuenta.objects.get(nombre="Caja general")
+                agregarDiario(cuenta, "compra",  ventaActualizar.total,0)
+
+                ventaActualizar.save()
+            Compra.objects.filter(estado=False).delete()
 
     context={
         'anios_esta':anios_estados,
-        #'idCompra':c,
+        'idVenta':c,
+        'clientes':clientes,
+        'precioL':precioL,
+        'precioS': precioS,
+        'precioM': precioM,
+        'precioF': precioF,
+        'precioB': precioB,
     }
     return render(request,"paginas/venta.html",context)
 
@@ -230,15 +345,78 @@ def Entradas(request):
 def inventario(request):
     anios_estados = PeriodoContable.objects.raw(
         'select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
-    inventario=Kardex.objects.all()
-    detalleKardex.objects.get(tipo="Materia Prima")
+    detallePeld=detalleKardex.objects.get(nombre="Plastico PELD" )
+    detallePehd = detalleKardex.objects.get(nombre="Plastico PEHD")
+    detallePet = detalleKardex.objects.get(nombre="Plastico PET")
+
+    inventario = Kardex.objects.all()
+    if request.POST:
+        producto = request.POST.get("producto")
+        cantidad = request.POST.get("cantidad")
+        if producto == "Mesas para exterior":
+            cant = float(cantidad) * 9.3
+            precio=12 #Estos precio deberan de ser calculados con una funcion, ejemplo precio=calcularPrecio(cant)
+        else:
+            if producto == "Bancas para exterior":
+                cant = float(cantidad) * 5.9
+                precio =7
+
+            else:
+                if producto == "Sillas de playa":
+                    cant = float(cantidad) * 8.9
+                    precio=18
+                else:
+                    if producto == "Losas plasticas":
+                        cant = float(cantidad) * 1.7
+                        concepto = "Plastico PELD"
+                        precio=3.5
+                    else:
+                        cant = float(cantidad) * 1.3
+                        concepto = "Plastico PET"
+                        precio=1
+        concepto = "Plastico PEHD"
+        agregarKardex(0, 0, cant, 0, concepto)
+		
+        agregarKardex(cantidad,precio,0,0,producto)
+		
+        inventario = Kardex.objects.all()
+        context = {
+            'anios_esta': anios_estados,
+            'inventario': inventario,
+            'detallePeld': detallePeld,
+            'detallePehd': detallePehd,
+            'detallePet': detallePet,
+
+        }
+        return render(request, "paginas/inventarios.html", context)
+
     context = {
         'anios_esta': anios_estados,
         'inventario': inventario,
-        'detalle'   : detalleKardex,
-
-			 
-								   
-					  
-    }
+        'detallePeld'   : detallePeld,
+        'detallePehd':detallePehd,
+        'detallePet':detallePet,    }
     return render(request, "paginas/inventarios.html", context)
+
+def inventarioProducto(request):
+    anios_estados = PeriodoContable.objects.raw(
+        'select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
+    detalleLosas = detalleKardex.objects.get(nombre="Losas plasticas")
+    detalleFiguras = detalleKardex.objects.get(nombre="Figuras")
+    detalleSillas = detalleKardex.objects.get(nombre="Sillas de playa")
+    detalleBancas = detalleKardex.objects.get(nombre="Bancas para exterior")
+    detalleMesas = detalleKardex.objects.get(nombre="Mesas para exterior")
+
+    inventario = Kardex.objects.all()
+
+    context = {
+        'anios_esta': anios_estados,
+        'inventario': inventario,
+        'detalleFiguras': detalleFiguras,
+        'detalleLosas': detalleLosas,
+        'detalleSillas': detalleSillas,
+        'detalleBancas':detalleBancas,
+        'detalleMesas':detalleMesas,
+
+    }
+    return render(request, "paginas/inventario_producto.html", context)
