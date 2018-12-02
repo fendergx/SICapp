@@ -431,8 +431,9 @@ def catalogo(request):
     cuentas = Cuenta.objects.all()
     if len(cuentas)==0:
         iniciarCatalogo()
-
-    return render(request, "paginas/catalogo.html")
+    cuenta = Cuenta.objects.all()
+    contexto = {'cuentas':cuenta}
+    return render(request, "paginas/catalogo.html", contexto)
 
 
 def inventario1(request):
