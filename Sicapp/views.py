@@ -429,3 +429,35 @@ def catalogo(request):
         iniciarCatalogo()
 
     return render(request, "paginas/catalogo.html")
+
+##############################################################
+def transcuenta(request):
+    cuentas = Cuenta.objects.all()
+    exito = ' '
+
+    if request.POST:
+        cuendebe = request.POST.get("idcue1")
+        cuenhabe = request.POST.get("idcue2")
+        monto = float(request.POST.get("monto"))
+        cuentadedebe = Cuenta.objects.get(codCuenta = cuendebe)
+        cuentadehaber = Cuenta.objects.get(codCuenta = cuenhabe)
+        agregarDiario(cuentadedebe,"carga",monto,0)
+        agregarDiario(cuentadehaber,"abono",0,monto)
+        exito = "Se hizo una transaccion"
+        context = {
+            'cuenta': cuentas,
+            'cuende': cuentadedebe,
+            'cuenha': cuentadehaber,
+            'monto': monto,
+            'exito': exito,
+        }
+        return render(request, "paginas/transa_cuentas.html", context)
+
+    context ={
+        'cuenta': cuentas,
+        'exito': exito,
+    }
+    return render(request, "paginas/transa_cuentas.html", context)
+
+def comprobacion(request):
+    return render(request, "paginas/comprobacion.html")

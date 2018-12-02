@@ -1,0 +1,58 @@
+{% extends "base/base.html" %}
+{% block contenido %}
+    <div class="content-frame">
+        <!-- START CONTENT FRAME TOP -->
+        <div class="content-frame-top">
+            <div class="page-title">
+
+                <h2><span class="fa fa-inbox "></span> Transaccion en Cuentas
+                    <small></small>
+                </h2>
+            </div>
+        </div>
+        <br> <br> <br> <br> <br> <br>
+        <div class="col-lg-12">
+            <form class="form-horizontal" role="form" id="form_trans" method="post">{% csrf_token %}
+                <br><br><br>
+
+                <div class="form-group " role="form">
+                    <label class="control-label col-md-1">Debe</label>
+                    <div class="col-md-4">
+                        <select class="form-control selectpicker" name="idcue1" id="idcue1">
+						{% for cue in cuenta %}
+                        {% if cue.padre == False %}
+							<option value="{{cue.codCuenta}}" style="width: 15%" name>{{cue.nombre}}</option>
+                        {% endif %}
+						{% endfor %}
+						</select>
+                    </div>
+                    <label class="control-label col-md-1">Haber</label>
+                    <div class=" col-md-4">
+                        <select class="form-control selectpicker" name="idcue2" id="idcue2">
+                        {% for cue in cuenta %}
+                        {% if cue.padre == False %}
+                            <option value="{{cue.codCuenta}}" style="width: 15%">{{cue.nombre}}</option>
+                        {% endif %}
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <br><br><br>
+                    <label class="control-label col-md-1">Monto $</label>
+                    <div class=" col-md-4">
+                        <input class="form-control" id="monto" name="monto" value="" type="text">
+                    </div>
+
+                </div>
+                <br><br>
+                	<label class="control-label col-md-1"></label>
+                    <button class="btn btn-primary col-md-2">Guardar</button>
+            </form>
+            {% if exito != " " %}
+            <br> <br> <br> <br> <br>
+            <div class="col-lg-12">
+                <label class="col-md-8 ">{{exito}} <br>Cargo en: <p style="color: red">{{cuende.nombre}} </p><br>Abono a: <p style="color: red">{{cuenha.nombre}}</p> <br>  Por un Monto: <p style="color: red">{{monto}} </p></label>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}
