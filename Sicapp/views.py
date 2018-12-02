@@ -382,8 +382,7 @@ def inventario(request):
                         precio=1
         concepto = "Plastico PEHD"
         agregarKardex(0, 0, cant, 0, concepto)
-		
-        agregarKardex(cantidad,precio,0,0,producto)
+        costosUnitarios(cantidad,producto)
 		
         inventario = Kardex.objects.all()
         context = {
