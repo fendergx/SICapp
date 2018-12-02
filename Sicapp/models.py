@@ -72,6 +72,7 @@ class Cuenta(models.Model):
     codigoN = models.CharField(max_length=8) #Codigo segun NIIF
     nombre = models.CharField(max_length=50)
     tipoCuenta = models.CharField(max_length=25)
+    padre = models.BooleanField(default=True)
 
 class ControlEfectivo(models.Model):
     idControl = models.AutoField(primary_key=True)
