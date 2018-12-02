@@ -164,62 +164,66 @@ def ventas(request):
         iniciarPeriodo()
         periodoC = PeriodoContable.objects.get(activo=True)
 
-    if periodoC != None:
-        if request.POST:
-            ventaActualizar = Venta.objects.get(idVenta=c)
-            ventaActualizar.terminoVenta = request.POST.get("termino")
-            ventaActualizar.tipoVenta = request.POST.get("tipoVenta")
-            if ventaActualizar.tipoVenta == "Credito":
-                ventaActualizar.cliente = request.POST.get("idCliente")
-                ventaActualizar.plazo = request.POST.get("plazo")
+    if periodoC != None and request.POST:
+        ventaActualizar = Venta.objects.get(idVenta=c)
+        ventaActualizar.terminoVenta = request.POST.get("termino")
+        ventaActualizar.tipoVenta = request.POST.get("tipoVenta")
+        if ventaActualizar.tipoVenta == "Credito":
+            ventaActualizar.cliente = request.POST.get("idCliente")
+            ventaActualizar.plazo = request.POST.get("plazo")
 
-            contador = 0
-            total = 0
-            cantidadProd = 0
-            for i in range(1, 12):
+        contador = 0
+        total = 0
+        cantidadProd = 0
+        for i in range(1, 12):
 
-                cantidad = request.POST.get("cantidad" + str(i))
+            cantidad = request.POST.get("cantidad" + str(i))
 
-                idVenta = Venta.objects.get(idVenta=c)
+            idVenta = Venta.objects.get(idVenta=c)
 
-                if cantidad != "0" and cantidad != None:
-                    concepto = request.POST.get("concepto" + str(i))
-                    precio = request.POST.get("precio" + str(i))
-                    det = detalleKardex.objects.get(nombre=concepto)
-                    prec = Kardex.objects.filter(detalle=det).latest('idKardex')
+            if cantidad != "0" and cantidad != None:
+                concepto = request.POST.get("concepto" + str(i))
+                precio = request.POST.get("precio" + str(i))
+                det = detalleKardex.objects.get(nombre=concepto)
+                prec = Kardex.objects.filter(detalle=det).latest('idKardex')
+                subTotalI = int(float(prec.precExistencia)) * int(float(cantidad))
+                if concepto=="Losas" or concepto=="Figuras":
+                    subTotal = subTotalI *1.35
+                else: subTotal=subTotalI*1.5
+                cantidadProd = cantidadProd + int(float(cantidad))
+                total = total + subTotal
+                detalle = DetalleVenta(cantidad=cantidad, producto=concepto, precio=prec.precExistencia, total=subTotal,
+                                        venta=idVenta)
+                detalle.save()
+                cuenta = Cuenta.objects.get(nombre=concepto)
+                cuenta1 = Cuenta.objects.get(nombre="Costo de lo Vendido")
+                agregarDiario(cuenta, "Venta", 0, subTotalI)
+                agregarDiario(cuenta1,"Venta",subTotalI,0)
+                agregarKardex( 0, 0,cantidad, prec.precExistencia, concepto)
+                contador = contador + 1
+        cuenta1 = Cuenta.objects.get(nombre="Ingreso por Ventas")
+        agregarDiario(cuenta1, "Venta", 0, total)
+        if ventaActualizar.terminoVenta == "Venta Gravada":
+            ventaActualizar.iva = total * 0.13
+            cuenta = Cuenta.objects.get(nombre="Debito Fiscal (IVA)")
+            agregarDiario(cuenta, "Venta", 0, ventaActualizar.iva)
+            ventaActualizar.total = total + ventaActualizar.iva
+        else: ventaActualizar.total=total
 
-                    subTotal = (float(prec.precExistencia) * int(float(cantidad)))
-                    cantidadProd = cantidadProd + int(float(cantidad))
-                    total = total + subTotal
-                    detalle = DetalleVenta(cantidad=cantidad, producto=concepto, precio=prec.precExistencia, total=subTotal,
-                                            venta=idVenta)
-                    detalle.save()
-                    cuenta = Cuenta.objects.get(nombre=concepto)
-                    agregarDiario(cuenta, "Venta", 0, subTotal)
-                    agregarKardex( 0, 0,cantidad, prec.precExistencia, concepto)
-                    contador = contador + 1
+        if ventaActualizar.total != 0:
+            ventaActualizar.estado = True
+            ventaActualizar.periodoContable = periodoC
+        if ventaActualizar.tipoVenta == "Credito":
+            agregarTransaccionCV("Venta de producto", total, ventaActualizar, "Venta", periodoC)
+            cuenta = Cuenta.objects.get(nombre="Clientes")
+            agregarDiario(cuenta, "Venta",  ventaActualizar.total,0)
+        else:
+            agregarControlEfectivo("Venta Productos", ventaActualizar, periodoC)
+            cuenta = Cuenta.objects.get(nombre="Caja General")
+            agregarDiario(cuenta, "compra",  ventaActualizar.total,0)
 
-            if ventaActualizar.terminoVenta == "Venta Gravada":
-                ventaActualizar.iva = total * 0.13
-                cuenta = Cuenta.objects.get(nombre="Debito Fiscal (IVA)")
-                agregarDiario(cuenta, "Venta", 0, ventaActualizar.iva)
-                ventaActualizar.total = total + ventaActualizar.iva
-            else: ventaActualizar.total=total
-
-            if ventaActualizar.total != 0:
-                ventaActualizar.estado = True
-                ventaActualizar.periodoContable = periodoC
-            if ventaActualizar.tipoVenta == "Credito":
-                agregarTransaccionCV("Venta de producto", total, ventaActualizar, "Venta", periodoC)
-                cuenta = Cuenta.objects.get(nombre="Clientes")
-                agregarDiario(cuenta, "Venta",  ventaActualizar.total,0)
-            else:
-                agregarControlEfectivo("Venta Productos", ventaActualizar, periodoC)
-                cuenta = Cuenta.objects.get(nombre="Caja General")
-                agregarDiario(cuenta, "compra",  ventaActualizar.total,0)
-
-            ventaActualizar.save()
-            Venta.objects.filter(estado=False).delete()
+        ventaActualizar.save()
+        Venta.objects.filter(estado=False).delete()
 
 
     context={
