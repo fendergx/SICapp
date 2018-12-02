@@ -168,6 +168,7 @@ class LibroDiario(models.Model):
 class Planilla(models.Model):
     idPlanilla = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
+    total = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
 
 class empleado(models.Model):
 	nombreCompleto = models.CharField(max_length=60)
