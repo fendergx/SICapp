@@ -1,0 +1,6 @@
+codCuenta;codigoN;nombre;tipoCuenta;padre;
+AC028;11444;Cinta Adhesiva;Activo;True;
+AC038;117;Credito Fiscal (IVA);Activo;False;
+PA010;22125;IVA por Pagar;Pasivo;False;
+PA016;216;Debito Fiscal (IVA);Pasivo;False;
+PA025;2178;IVA Retenido a Terceros;Pasivo;True;
