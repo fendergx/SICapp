@@ -164,9 +164,25 @@ class LibroDiario(models.Model):
     descripcion = models.CharField(max_length=300)
     cargo = models.CharField(max_length=80, null=True)
     abono = models.CharField(max_length=80,null=True)
+
 class Planilla(models.Model):
     idPlanilla = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
+    total = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
+
+class empleado(models.Model):
+	nombreCompleto = models.CharField(max_length=60)
+	cargo = models.CharField(max_length=100)
+	sueldoBase = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
+	ingresoExtra = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
+	vacaciones = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
+	totalDevengado = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+	isss= models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
+	afp = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
+	renta = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
+	otrasDeducciones = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
+	sueldoLiquido = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
+        tipo = models.CharField(max_length=30, default='Admon')
 
 #---------------**********-----------------------*************----------------------
 

@@ -149,20 +149,20 @@ def iniciarKardex():
     Kardex.objects.create(fecha=date.today(), cantEntrada=0, precEntrada=0, montoEntrada=0, cantSalida=0, precSalida=0,
                       montoSalida=0, cantExistencia=160, precExistencia=0.6, montoExistencia=160 * 0.6,  detalle=detalle3)
     Kardex.objects.create(fecha=date.today(), cantEntrada=0, precEntrada=0, montoEntrada=0, cantSalida=0, precSalida=0,
-                          montoSalida=0, cantExistencia=6, precExistencia=3.5, montoExistencia=6 * 3.5,
+                          montoSalida=0, cantExistencia=6, precExistencia=5.85, montoExistencia=6 * 5.85,
                           detalle=detalle4)
 
     Kardex.objects.create(fecha=date.today(), cantEntrada=0, precEntrada=0, montoEntrada=0, cantSalida=0, precSalida=0,
-                          montoSalida=0, cantExistencia=10, precExistencia=1, montoExistencia=10 * 1,
+                          montoSalida=0, cantExistencia=10, precExistencia=4.53, montoExistencia=10 *4.53,
                           detalle=detalle5)
     Kardex.objects.create(fecha=date.today(), cantEntrada=0, precEntrada=0, montoEntrada=0, cantSalida=0, precSalida=0,
                           montoSalida=0, cantExistencia=2, precExistencia=18, montoExistencia=2 * 18,
                           detalle=detalle6)
     Kardex.objects.create(fecha=date.today(), cantEntrada=0, precEntrada=0, montoEntrada=0, cantSalida=0, precSalida=0,
-                          montoSalida=0, cantExistencia=5, precExistencia=7, montoExistencia=5* 7,
+                          montoSalida=0, cantExistencia=5, precExistencia=8.94, montoExistencia=5* 8.94,
                           detalle=detalle7)
     Kardex.objects.create(fecha=date.today(), cantEntrada=0, precEntrada=0, montoEntrada=0, cantSalida=0, precSalida=0,
-                          montoSalida=0, cantExistencia=1, precExistencia=12, montoExistencia=1*12,
+                          montoSalida=0, cantExistencia=6, precExistencia=12, montoExistencia=6*12,
                           detalle=detalle8)
 
 
@@ -413,3 +413,60 @@ def iniciarCatalogo():
     Cuenta.objects.create(codCuenta="CRA003", codigoN="512", nombre="Ingreso por Servicios", tipoCuenta="Cuentas de Resultado Acreedor")   
     Cuenta.objects.create(codCuenta="CL01", codigoN="61", nombre="Cuenta Liquidadora", tipoCuenta="Cuenta de Cierre")
     Cuenta.objects.create(codCuenta="CL02", codigoN="611", nombre="Perdidas y Ganancias", tipoCuenta="Cuenta de Cierre")
+
+def costosUnitarios(cantidad,producto):
+    detallePeld = detalleKardex.objects.get(nombre="Plastico PELD")
+    detallePehd = detalleKardex.objects.get(nombre="Plastico PEHD")
+    detallePet = detalleKardex.objects.get(nombre="Plastico PET")
+
+    ultimoPet=Kardex.objects.filter(detalle=detallePet).latest('idKardex')
+    ultimoPehd = Kardex.objects.filter(detalle=detallePehd).latest('idKardex')
+    ultimoPeld = Kardex.objects.filter(detalle=detallePeld).latest('idKardex')
+
+    mpdMesa=29963.1*float(ultimoPehd.precExistencia)
+    mpdBancas=25129.6*float(ultimoPehd.precExistencia)
+    mpdSillas=4667.2*float(ultimoPehd.precExistencia)
+    mpdFiguras=7889.6*float(ultimoPehd.precExistencia)
+    mpdLosas=5603.10*float(ultimoPet.precExistencia)
+
+    costopMesa = mpdMesa+13394.152
+    costopBanca = mpdBancas + 14831.24
+    costopSillas = mpdSillas + 12438.73
+    costopFiguras = mpdFiguras + 2310.19
+    costopLosas = mpdLosas + 3905.22
+
+    totalMesas=costopMesa+157789.55+16156.61+28784.15
+    totalLosas = costopLosas + 20963.63+3021.29+5382.64
+    totalBancas=costopBanca+149387.63+13550.3+24140.83
+    totalSillas=costopSillas+49231.54+2516.63+4483.56
+    totalFiguras=costopFiguras+17659.96+4254.2+7549.17
+
+    cuMesas=totalMesas/29963.10
+    cuLosas=totalLosas/5603.10
+    cuBancas=totalBancas/25129.6
+    cuSillas=totalSillas/4667.2
+    cuFiguras=totalFiguras/7889.6
+
+    if producto == "Mesas para exterior":
+        agregarKardex(cantidad, cuMesas, 0, 0, producto)
+    else:
+        if producto == "Bancas para exterior":
+            agregarKardex(cantidad, cuBancas, 0, 0, producto)
+        else:
+            if producto == "Sillas de playa":
+                agregarKardex(cantidad, cuSillas, 0, 0, producto)
+            else:
+                if producto == "Losas plasticas":
+                    agregarKardex(cantidad, cuLosas, 0, 0, producto)
+                else:agregarKardex(cantidad, cuFiguras, 0, 0, producto)
+
+    print("mesas: ")
+    print(cuMesas)
+    print("Losas: ")
+    print(cuLosas)
+    print("Bancas: ")
+    print(cuBancas)
+    print("Sillas: ")
+    print(cuSillas)
+    print("Figuras: ")
+    print(cuFiguras)

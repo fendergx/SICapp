@@ -1,1 +1,27 @@
 {% extends "base/base.html" %}
+
+{% block contenido %}
+    <table class="table table-bordered">
+    	<thead>
+    		<tr>
+    			<td>Codigo</td>
+    			<td>Nombre</td>
+    			<td>tipoCuenta</td>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		{% if cuentas %}
+    		{% for cuenta in cuentas %}
+    		<tr>
+    			<td>{{cuenta.codigoN}}</td>
+    			<td>{{cuenta.nombre}}</td>
+    			<td>{{cuenta.tipoCuenta}}</td>
+    		</tr>
+    		{% endfor %}
+
+    		{% else %}
+    		<h1>no hay registros</h1>
+    		{% endif %}
+    	</tbody>
+    </table>
+{% endblock contenido %}
