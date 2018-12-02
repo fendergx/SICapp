@@ -429,3 +429,122 @@ def catalogo(request):
         iniciarCatalogo()
 
     return render(request, "paginas/catalogo.html")
+
+
+def inventario1(request):
+    anios_estados = PeriodoContable.objects.raw(
+        'select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
+   # detallePeld=detalleKardex.objects.get(nombre="Plastico PELD" )
+    #detallePehd = detalleKardex.objects.get(nombre="Plastico PEHD")
+    #detallePet = detalleKardex.objects.get(nombre="Plastico PET")
+
+    inventario = Kardex.objects.all()
+    if request.POST:
+        producto = request.POST.get("producto")
+        cantidad = request.POST.get("cantidad")
+        if producto == "Mesas para exterior":
+            plast == "PEHD"
+            req = 29963.10
+            costo0 = float(cantidad) *  float(req)  
+        else:
+            if producto == "Bancas para exterior":
+                plast == "PEHD"
+                req = 25129.60
+                costo1 = float(cantidad) * float(req)
+            else:
+                if producto == "Sillas de playa":
+                    plast == "PEHD"
+                    req = 4667.20
+                    costo2 = float(cantidad) * float(req)
+                else:
+                    if producto == "Losas plasticas":
+                        plast == "PET"
+                        req = 5603.10
+                        costo3 = float(cantidad) * float(req)
+                    else:
+                        plast == "Figuras"
+                        req = 7889.60
+                        costo4 = float(cantidad) * float(req)
+
+       # concepto = "Plastico PEHD"
+        #agregarKardex(0, 0, cant, 0, concepto)
+        
+        #agregarKardex(cantidad,precio,0,0,producto)
+        
+        inventario1 = Kardex.objects.all()
+        
+        return render(request, "paginas/costo_indirecto.html")
+
+    #context = {
+     #   'anios_esta': anios_estados,
+      #  'inventario': inventario,
+       # 'detallePeld'   : detallePeld,
+        #'detallePehd':detallePehd,
+        #'detallePet':detallePet,    }
+    #return render(request, "paginas/costo_indirecto.html", context)
+
+
+    def inventario2(request):
+        anios_estados = PeriodoContable.objects.raw(
+        'select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
+   # detallePeld=detalleKardex.objects.get(nombre="Plastico PELD" )
+    #detallePehd = detalleKardex.objects.get(nombre="Plastico PEHD")
+    #detallePet = detalleKardex.objects.get(nombre="Plastico PET")
+        canti= Kardex.objects.get(cantExistencia)
+
+        inventario = Kardex.objects.all()
+        if request.POST:
+            producto = request.POST.get("producto")
+            cantidad = request.POST.get("cantidad")
+            if producto == "Mesas para exterior":
+                costop = 3417.89
+                cif = 0
+                costoad = 3021.29
+                costoc = 5382.54
+                t = float(costop) + float(cif) + float(costoad) + float(costoc) 
+                ubpp = 5603.10
+                cu= float(float(t) / int(canti))
+            else:
+                if producto == "Bancas para exterior":
+                    costop = 3417.89
+                    cif = 0
+                    costoad = 3021.29
+                    costoc = 5382.54
+                    t = float(costop) + float(cif) + float(costoad) + float(costoc) 
+                    ubpp = 5603.10
+                    cu= float(float(t) / int(canti))
+                else:
+                    if producto == "Sillas de playa":
+                        costop = 3417.89
+                        cif = 0
+                        costoad = 3021.29
+                        costoc = 5382.54
+                        t = float(costop) + float(cif) + float(costoad) + float(costoc) 
+                        ubpp = 5603.10
+                        cu= float(float(t) / int(canti))
+                    else:
+                        if producto == "Losas plasticas":
+                            costop = 3417.89
+                            cif = 0
+                            costoad = 3021.29
+                            costoc = 5382.54
+                            t = float(costop) + float(cif) + float(costoad) + float(costoc) 
+                            ubpp = 5603.10
+                            cu= float(float(t) / int(canti))
+                        else:
+                            plast == "Figuras"
+                            costop = 3417.89
+                            cif = 0
+                            costoad = 3021.29
+                            costoc = 5382.54
+                            t = float(costop) + float(cif) + float(costoad) + float(costoc) 
+                            ubpp = 5603.10
+                            cu= float(float(t) / int(canti))
+           # concepto = "Plastico PEHD"
+            #agregarKardex(0, 0, cant, 0, concepto)
+            
+            #agregarKardex(cantidad,precio,0,0,producto)
+            
+            inventario1 = Kardex.objects.all()
+            
+            return render(request, "paginas/costo_indirecto.html")
