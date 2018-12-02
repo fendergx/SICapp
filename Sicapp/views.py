@@ -422,7 +422,9 @@ def inventarioProducto(request):
     }
     return render(request, "paginas/inventario_producto.html", context)
 
-def catalogoCuentas():
+def catalogo(request):
     cuentas = Cuenta.objects.all()
     if len(cuentas)==0:
         iniciarCatalogo()
+
+    return render(request, "paginas/catalogo.html")
