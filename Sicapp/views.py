@@ -31,6 +31,9 @@ def probando(request):
     controlEfectivo=ControlEfectivo.objects.all()
     if len(controlEfectivo)==0:
         iniciarControl()
+    cuentas=Cuenta.objects.all()
+    if len(cuentas)==0:
+        iniciarCatalogo()
     return render(request,"paginas/index.html",{'anios_esta':PeriodoContable.objects.raw('select * from Sicapp_PeriodoContable group by anio order by anio desc  ')})
 
 def estadosFinancieros(request, id_estados):
@@ -62,63 +65,64 @@ def compras(request):
         iniciarPeriodo()
         periodoC = PeriodoContable.objects.get(activo=True)
 
-    if periodoC!=None:
-        if request.POST:
-            compraActualizar=Compra.objects.get(idCompra=c)
-            compraActualizar.terminoCompra=request.POST.get("termino")
-            compraActualizar.tipoCompra=request.POST.get("tipoCompra")
-            if compraActualizar.tipoCompra=="Credito":
-                compraActualizar.proveedor=request.POST.get("proveedor")
-                compraActualizar.plazo=request.POST.get("plazo")
+    if request.POST:
+        compraActualizar=Compra.objects.get(idCompra=c)
+        compraActualizar.terminoCompra=request.POST.get("termino")
+        compraActualizar.tipoCompra=request.POST.get("tipoCompra")
+        if compraActualizar.tipoCompra=="Credito":
+            compraActualizar.proveedor=request.POST.get("proveedor")
+            compraActualizar.plazo=request.POST.get("plazo")
 
-            contador=0
-            total = 0
-            cantidadProd=0
-            for i in range(1,12):
+        contador=0
+        total = 0
+        cantidadProd=0
+        for i in range(1,12):
 
-                cantidad = request.POST.get("cantidad"+str(i))
+            cantidad = request.POST.get("cantidad"+str(i))
 
-                idCompra=Compra.objects.get(idCompra=c)
+            idCompra=Compra.objects.get(idCompra=c)
 
-                if cantidad!="0" and cantidad!= None:
-                    concepto=request.POST.get("concepto"+str(i))
-                    precio=request.POST.get("precio"+str(i))
-                    subTotal = int(float(precio))*int(float(cantidad))
-                    cantidadProd=cantidadProd+int(float(cantidad))
-                    total=total+subTotal
-                    detalle=Detallecompra(cantidad=cantidad,concepto=concepto,precio=precio,total=subTotal,compra=idCompra)
-                    detalle.save()
-                    cuenta=Cuenta.objects.get(nombre=concepto)
-                    agregarDiario(cuenta,"compra",subTotal,0)
-                    agregarKardex(cantidad,precio,0,0,concepto)
-                    contador=contador+1
+            if cantidad!="0" and cantidad!= None:
+                concepto=request.POST.get("concepto"+str(i))
+                precio=request.POST.get("precio"+str(i))
+                subTotal = float(precio)*int(float(cantidad))
+                cantidadProd=cantidadProd+int(float(cantidad))
+                total=total+subTotal
+                detalle=Detallecompra(cantidad=cantidad,concepto=concepto,precio=precio,total=subTotal,compra=idCompra)
+                detalle.save()
+                cuenta=Cuenta.objects.get(nombre=concepto)
+                agregarDiario(cuenta,"compra",subTotal,0)
+                agregarKardex(cantidad,precio,0,0,concepto)
+                contador=contador+1
 
 
-            if compraActualizar.terminoCompra=="Compra Gravada":
-                compraActualizar.iva=total*0.13
-                cuenta = Cuenta.objects.get(nombre="IVA")
-                agregarDiario(cuenta, "compra", compraActualizar.iva, 0)
-                compraActualizar.total=total+compraActualizar.iva
-            else:
-            	compraActualizar.iva=total*0.13
-                cuenta = Cuenta.objects.get(nombre="IVA")
-                agregarDiario(cuenta, "compra", compraActualizar.iva, 0)
-                compraActualizar.total=total+compraActualizar.iva
-                
-            if compraActualizar.total!=0:
-                compraActualizar.estado=True
-            compraActualizar.periodoContable=periodoC
-            if compraActualizar.tipoCompra=="Credito":
-                agregarTransaccionCV("Compra materia prima", total, compraActualizar, "compra", periodoC)
-                cuenta = Cuenta.objects.get(nombre="Cuentas por pagar a proveedores")
-                agregarDiario(cuenta, "compra", 0, compraActualizar.total)
-            else:
-                agregarControlEfectivo("Compra materia prima", compraActualizar,periodoC)
-                cuenta = Cuenta.objects.get(nombre="Caja general")
-                agregarDiario(cuenta, "compra", 0, compraActualizar.total)
 
-            compraActualizar.save()
-            Compra.objects.filter(estado=False).delete()
+        if compraActualizar.terminoCompra=="Compra Gravada":
+            compraActualizar.iva=total*0.13
+            cuenta = Cuenta.objects.get(nombre="Credito Fiscal (IVA)")
+            agregarDiario(cuenta, "compra", compraActualizar.iva, 0)
+            compraActualizar.total=total+compraActualizar.iva
+        else:
+            compraActualizar.total=total
+
+        print("total")
+        print(compraActualizar.total)
+
+        if compraActualizar.total!=0:
+            compraActualizar.estado=True
+        compraActualizar.periodoContable=periodoC
+        if compraActualizar.tipoCompra=="Credito":
+            agregarTransaccionCV("Compra materia prima", total, compraActualizar, "compra", periodoC)
+            cuenta = Cuenta.objects.get(nombre="Cuentas por Pagar a Proveedores")
+            agregarDiario(cuenta, "compra", 0, compraActualizar.total)
+        else:
+            agregarControlEfectivo("Compra materia prima", compraActualizar,periodoC)
+            cuenta = Cuenta.objects.get(nombre="Caja General")
+            agregarDiario(cuenta, "compra", 0, compraActualizar.total)
+        print(compraActualizar.total)
+        compraActualizar.save()
+        Compra.objects.filter(estado=False).delete()
+
 
 
 
@@ -196,14 +200,10 @@ def ventas(request):
 
             if ventaActualizar.terminoVenta == "Venta Gravada":
                 ventaActualizar.iva = total * 0.13
-                cuenta = Cuenta.objects.get(nombre="IVA por pagar")
+                cuenta = Cuenta.objects.get(nombre="Debito Fiscal (IVA)")
                 agregarDiario(cuenta, "Venta", 0, ventaActualizar.iva)
                 ventaActualizar.total = total + ventaActualizar.iva
-            else:
-            	ventaActualizar.iva = total * 0
-                cuenta = Cuenta.objects.get(nombre="IVA por pagar")
-                agregarDiario(cuenta, "Venta", 0, ventaActualizar.iva)
-                ventaActualizar.total = total + ventaActualizar.iva
+            else: ventaActualizar.total=total
 
             if ventaActualizar.total != 0:
                 ventaActualizar.estado = True
@@ -214,11 +214,12 @@ def ventas(request):
                 agregarDiario(cuenta, "Venta",  ventaActualizar.total,0)
             else:
                 agregarControlEfectivo("Venta Productos", ventaActualizar, periodoC)
-                cuenta = Cuenta.objects.get(nombre="Caja general")
+                cuenta = Cuenta.objects.get(nombre="Caja General")
                 agregarDiario(cuenta, "compra",  ventaActualizar.total,0)
 
-                ventaActualizar.save()
-            Compra.objects.filter(estado=False).delete()
+            ventaActualizar.save()
+            Venta.objects.filter(estado=False).delete()
+
 
     context={
         'anios_esta':anios_estados,
@@ -240,13 +241,18 @@ def periodoContable(request):
     try:
         periodo = PeriodoContable.objects.get(activo=True)
         periodoActualizar = PeriodoContable.objects.get(activo='True')
-        libroMayor=LibroMayor.objects.get(estado=True)
+
         if request.GET:
             periodoActualizar.idPeriodo
             periodoActualizar.activo = False
             periodoActualizar.save()
-            libroMayor.estado=False
-            libroMayor.save()
+            try:
+                libroMayor = LibroMayor.objects.get(estado=True)
+                libroMayor.estado = False
+                libroMayor.save()
+            except: LibroMayor.DoesNotExist
+
+
 
             try:
                 periodo = PeriodoContable.objects.get(activo=True)
@@ -275,14 +281,9 @@ def periodoContable(request):
     context = {
         'anios_esta': anios_estados,
         'periodo_actual': periodo,
-	   }
+       }
 
     return render(request, "paginas/periodo_contable.html", context)
-
-   # def CostoIndirectoList(request):
-    #model = CostoIndirecto
-    #template_name = 'paginas/costoInditecto_list.html'
-
 def costoIndirecto(request):
     anios_estados = PeriodoContable.objects.raw('select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
     #c=iniciarCompra()

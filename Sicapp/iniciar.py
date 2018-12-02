@@ -39,6 +39,7 @@ def iniciarLibroMayor(periodo):
     libroMayor.saldo=0
     libroMayor.estado=True
     libroMayor.periodo=periodo
+    libroMayor.save()
 
 def iniciarProveedor():
     Proveedor.objects.create(nrc="215",razonSocial="Ressourcerie",direccion="Urbanizacion Majuca, Cuscatanciongo, San Salvador")
@@ -48,6 +49,9 @@ def iniciarProveedor():
     Proveedor.objects.create(nrc="478", razonSocial="Rabo Group", direccion="Km 17 Carretera a Quezaltepeque calle de Apopa a Nejapa San Salvador")
 
 def agregarTransaccionCV(concepto,total,compra,tipo,periodo):
+    if tipo=="Venta":
+        tipoTransaccion=compra.terminoVenta
+    else: tipoTransaccion=compra.terminoCompra
     transaccion=TransaccionCV()
     transaccion.fecha=compra.fecha
     transaccion.concepto=concepto
@@ -58,7 +62,7 @@ def agregarTransaccionCV(concepto,total,compra,tipo,periodo):
     transaccion.periodo=periodo
     transaccion.saldo=total
     transaccion.tipoTransaccion=tipo
-    transaccion.terminoTransacion=compra.terminoVenta
+    transaccion.terminoTransacion=tipoTransaccion
     transaccion.save()
 
 def agregarControlEfectivo(concepto,compra,periodo):
@@ -67,7 +71,7 @@ def agregarControlEfectivo(concepto,compra,periodo):
         control.fecha=compra.fecha
         control.concepto=concepto
         control.tipoComprobante="Factura"
-        control.cuenta=Cuenta.objects.get(nombre="Caja general")
+        control.cuenta=Cuenta.objects.get(nombre="Caja General")
         control.saldoSalida=compra.total
         control.saldoEntrada=0
         saldoAnterior=float(ControlEfectivo.objects.latest('idControl').saldoTotal)
@@ -79,7 +83,7 @@ def agregarControlEfectivo(concepto,compra,periodo):
         control.fecha = compra.fecha
         control.concepto = concepto
         control.tipoComprobante = "Factura"
-        control.cuenta = Cuenta.objects.get(nombre="Caja general")
+        control.cuenta = Cuenta.objects.get(nombre="Caja General")
         control.saldoSalida = compra.total
         control.saldoEntrada = compra.total
         saldoAnterior = float(ControlEfectivo.objects.latest('idControl').saldoTotal)
@@ -88,14 +92,28 @@ def agregarControlEfectivo(concepto,compra,periodo):
         control.save()
 
 def agregarDiario(cuenta,descripcion,cargo,abono):
-    libroDiario=LibroDiario()
-    libroDiario.fecha=date.today()
-    libroDiario.libroM=LibroMayor.objects.get(estado=True)
-    libroDiario.cuenta=cuenta
-    libroDiario.descripcion=descripcion
-    libroDiario.cargo=cargo
-    libroDiario.abono=abono
-    libroDiario.save()
+    mayor=LibroMayor.objects.get(estado=True)
+
+    try:
+        lb=LibroDiario.objects.filter(libroM=mayor).get(cuenta=cuenta)
+
+    except:
+        LibroDiario.DoesNotExist
+        lb=None
+
+    if lb==None:
+        libroDiario = LibroDiario()
+        libroDiario.fecha = date.today()
+        libroDiario.libroM = LibroMayor.objects.get(estado=True)
+        libroDiario.cuenta = cuenta
+        libroDiario.descripcion = descripcion
+        libroDiario.cargo = cargo
+        libroDiario.abono = abono
+        libroDiario.save()
+    else:
+        lb.abono = float(lb.abono) + abono
+        lb.cargo = float(lb.cargo) + cargo
+        lb.save()
 
 def iniciarControl():
     periodo=PeriodoContable.objects.get(activo=True)
