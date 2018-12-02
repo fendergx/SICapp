@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import DatoEntrada
+from .models import *
 
 
 
@@ -28,14 +28,7 @@ class EntradaForm(forms.ModelForm):
 			
 		}
 
-
-
-
-
-
-
-
-
-
-
-
+	class EmpleadoForm(forms.ModelForm):
+		class Meta:
+			model = empleado
+			fields = '__all__'

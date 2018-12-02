@@ -182,6 +182,7 @@ class empleado(models.Model):
 	renta = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
 	otrasDeducciones = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
 	sueldoLiquido = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
+        tipo = models.CharField(max_length=30, default='Admon')
 
 #---------------**********-----------------------*************----------------------
 
