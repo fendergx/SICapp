@@ -8,6 +8,7 @@ from Sicapp.models import *
 from django.template import RequestContext
 from django.db.models import Max
 from .forms import EntradaForm
+from decimal import Decimal
 
 
 #def probando(request):return render(request, "index.html")
@@ -85,7 +86,7 @@ def compras(request):
             if cantidad!="0" and cantidad!= None:
                 concepto=request.POST.get("concepto"+str(i))
                 precio=request.POST.get("precio"+str(i))
-                subTotal = float(precio)*int(float(cantidad))
+                subTotal = Decimal(precio)*int(float(cantidad))
                 cantidadProd=cantidadProd+int(float(cantidad))
                 total=total+subTotal
                 detalle=Detallecompra(cantidad=cantidad,concepto=concepto,precio=precio,total=subTotal,compra=idCompra)
@@ -187,7 +188,7 @@ def ventas(request):
                     det = detalleKardex.objects.get(nombre=concepto)
                     prec = Kardex.objects.filter(detalle=det).latest('idKardex')
 
-                    subTotal = int(float(prec.precExistencia)) * int(float(cantidad))
+                    subTotal = (float(prec.precExistencia) * int(float(cantidad)))
                     cantidadProd = cantidadProd + int(float(cantidad))
                     total = total + subTotal
                     detalle = DetalleVenta(cantidad=cantidad, producto=concepto, precio=prec.precExistencia, total=subTotal,
