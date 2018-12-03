@@ -586,12 +586,12 @@ def comprobacion(request):
 
 
 ##############SECCION NUEVA#################
-def compras(request):
+def librocompras(request):
     compra = Compra.objects.all()
     contexto = {'compras':compra}
     return render(request, "paginas/librocompras.html", contexto)
 
-def ventas(request):
+def libroventas(request):
     venta = Venta.objects.all()
     contexto = {'ventas':venta}
     return render(request, "paginas/libroventas.html", contexto)

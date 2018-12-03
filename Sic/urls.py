@@ -41,6 +41,6 @@ urlpatterns = [
     url(r'comprobacion/$', views.comprobacion, name='comprobacion'),
 
     #Libros... no los toquen ALV! xD
-    url(r'librocompra/$',views.compras,name='librocompra'),
-    url(r'libroventa/$',views.ventas,name='libroventa'),
+    url(r'librocompra/$',views.librocompras,name='librocompra'),
+    url(r'libroventa/$',views.libroventas,name='libroventa'),
 ]
