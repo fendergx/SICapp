@@ -1,3 +1,44 @@
 {% extends "base/base.html" %}
 {% block contenido %}
+	<div class="content-frame">
+        <!-- START CONTENT FRAME TOP -->
+        <div class="content-frame-top">
+            <div class="page-title">
+
+                <h2><span class="fa fa-inbox "></span> Comprobacion
+                    <small></small>
+                </h2>
+            </div>
+        </div>
+        <br> <br> <br> <br> <br>
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+        	<table class="table">
+            	<tr>
+            		<th>Cod Cuenta</th>
+            		<th>Nombre Cuenta</th>
+            		<th>Debe</th>
+            		<th>Haber</th>
+            	</tr>
+           
+                {% for list in librodia%}
+                <tr>
+                	<td>{{list.0}}</td>
+                	<td>{{list.1}}</td>
+                	<td>{{list.2}}</td>
+                	<td>{{list.3}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                	<td>TOTAL</td>
+                	<td></td>
+                	<td>{{totaca}}</td>
+                	<td>{{totaab}}</td>
+                </tr>
+                		
+            </table>
+        </div>
+  
+
+    </div>
 {% endblock %}

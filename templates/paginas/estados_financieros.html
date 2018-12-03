@@ -14,26 +14,9 @@
         </div>
         <!-- END CONTENT FRAME TOP -->
 
-        <!-- START CONTENT FRAME LEFT -->
-        <div class="content-frame-left" style="height: 700px;">
-            <div class="block">
-                <a href="pages-mailbox-compose.html" class="btn btn-danger btn-block btn-lg"><span
-                        class="fa fa-download"></span> PDF</a>
-            </div>
-            <div class="block">
-                <div class="list-group border-bottom">
-                    {% for anio in anios %}
-                        <a href="#" class="list-group-item"><span class="fa fa-inbox"></span> {{ anio.mes }}</a>
-
-                    {% endfor %}
-                </div>
-            </div>
-
-        </div>
-        <!-- END CONTENT FRAME LEFT -->
-
+ 
         <!-- START CONTENT FRAME BODY -->
-        <div class="content-frame-body" style="height: 760px;">
+        <div class="col-md-12" style="height: 760px;">
 
             <div class="panel panel-default">
                 <div class="panel-heading ui-draggable-handle">
@@ -46,22 +29,28 @@
 
                     <div class="wizard">
 
-                        <ul class="steps_3 anchor">
+                        <ul class="steps_4 anchor">
                             <li>
                                 <a href="#step-1" class="selected" isdone="1" rel="1">
                                     <span class="stepNumber">1</span>
-                                    <span class="stepDesc">Estado de Resultado<br/><small></small></span>
+                                    <span class="stepDesc">Estado Comprobacion<br/><small></small></span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#step-2" class="disabled" isdone="0" rel="2">
+                                <a href="#step-2" class="selected" isdone="1" rel="2">
                                     <span class="stepNumber">2</span>
-                                    <span class="stepDesc">Estado de capital<br/><small></small></span>
+                                    <span class="stepDesc">Estado de Resultado<br/><small></small></span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#step-3" class="disabled" isdone="0" rel="3">
                                     <span class="stepNumber">3</span>
+                                    <span class="stepDesc">Estado de capital<br/><small></small></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#step-4" class="disabled" isdone="0" rel="4">
+                                    <span class="stepNumber">4</span>
                                     <span class="stepDesc">Balance General<br/><small></small></span>
                                 </a>
                             </li>
@@ -73,7 +62,73 @@
                             <div id="step-1" class="content" style="display: block;">
                                 <div class="panel panel-default ">
                                     <div class="panel-heading ui-draggable-handle">
-                                        <h3 class="panel-title">Estado de resultado</h3>
+                                        <h3 class="panel-title">Estado Comprobacion</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-bordered ">
+                                            <tr>
+                                                <th>Cod Cuenta</th>
+                                                <th>Nombre Cuenta</th>
+                                                <th>Debe</th>
+                                                <th>Haber</th>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Activo</b></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            {% for list in librodia%}
+                                            <tr>
+                                                <td>{{list.0}}</td>
+                                                <td>{{list.1}}</td>
+                                                <td>{{list.2}}</td>
+                                                <td>{{list.3}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <td><b>Pasivo</b></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            {% for list in librodib%}
+                                            <tr>
+                                                <td>{{list.0}}</td>
+                                                <td>{{list.1}}</td>
+                                                <td>{{list.2}}</td>
+                                                <td>{{list.3}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <td><b>Capital</b></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            {% for list in librodic%}
+                                            <tr>
+                                                <td>{{list.0}}</td>
+                                                <td>{{list.1}}</td>
+                                                <td>{{list.2}}</td>
+                                                <td>{{list.3}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <td>TOTAL</td>
+                                                <td></td>
+                                                <td>{{totaca}}</td>
+                                                <td>{{totaab}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-2" class="content" style="display: block;">
+                                <div class="panel panel-default ">
+                                    <div class="panel-heading ui-draggable-handle">
+                                        <h3 class="panel-title">Estado Resultado</h3>
                                     </div>
                                     <div class="panel-body">
                                         <p>Add <code>.table .table-bordered</code> to table to get table with borders.
@@ -183,13 +238,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="step-2" class="content" style="display: none;">
+                            <div id="step-3" class="content" style="display: none;">
                                 <h4>Estado Capital</h4>
                                 <p>Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et
                                     magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh
                                     ultricies vehicula.</p><br>
                             </div>
-                            <div id="step-3" class="content" style="display: none;">
+                            <div id="step-4" class="content" style="display: none;">
                                 <div class="panel panel-default">
                                     <div class="panel-heading ui-draggable-handle">
                                         <h3 class="panel-title">Balance General</h3>

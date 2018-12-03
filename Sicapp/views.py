@@ -40,10 +40,88 @@ def probando(request):
 def estadosFinancieros(request, id_estados):
     anios=PeriodoContable.objects.filter(anio=id_estados)
     anios_estados=PeriodoContable.objects.raw('select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
+    librosDiarios = LibroDiario.objects.all().order_by('cuenta')
+    listadoa = []
+    listadob = []
+    listadoc = []
+    lisaux = []
+    caracu = 0.0
+    aboacu = 0.0
+
+####### Metodo de ordenamiento de cuentas
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 11:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 12:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 13:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 21:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 22:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 23:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 24:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 31:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 32:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 33:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 41:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 42:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 51:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 52:
+            lisaux.append(libros)
+
+
+    for libros in lisaux:
+        carg = float(libros.cargo)
+        abon = float(libros.abono)
+        cab = carg - abon
+        if cab < 0:
+            abon = -cab
+            carg = 0
+        else:
+            carg = cab
+            abon = 0
+        a = [libros.cuenta.codigoN,libros.cuenta.nombre,carg,abon,libros.cuenta.tipoCuenta]
+        if a[4]=='Activo':
+            listadoa.append(a)
+        if a[4]=='Pasivo':
+            listadob.append(a)
+        if a[4]=='Patrimonio':
+            listadoc.append(a)
+        caracu = caracu + carg
+        aboacu = aboacu + abon
+
     context ={
         'anios':anios,
         'anios_esta':anios_estados,
-        'anio_select':id_estados
+        'anio_select':id_estados,
+        'librodia': listadoa,
+        'librodib': listadob,
+        'librodic': listadoc,
+        'totaca': caracu,
+        'totaab': aboacu,
     }
     return render(request,"paginas/estados_financieros.html",context)
 
@@ -582,4 +660,75 @@ def inventario1(request):
             return render(request, "paginas/costo_indirecto.html")
 
 def comprobacion(request):
-    return render(request, "paginas/comprobacion.html")
+    librosDiarios = LibroDiario.objects.all().order_by('cuenta')
+    listado = []
+    lisaux = []
+    caracu = 0.0
+    aboacu = 0.0
+
+####### Metodo de ordenamiento de cuentas
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 11:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 12:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 13:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 21:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 22:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 23:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 24:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 31:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 32:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 33:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 41:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 42:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 51:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 52:
+            lisaux.append(libros)
+
+
+    for libros in lisaux:
+        carg = float(libros.cargo)
+        abon = float(libros.abono)
+        cab = carg - abon
+        if cab < 0:
+            abon = -cab
+            carg = 0
+        else:
+            carg = cab
+            abon = 0
+        a = [libros.cuenta.codigoN,libros.cuenta.nombre,carg,abon]
+        listado.append(a)
+        caracu = caracu + carg
+        aboacu = aboacu + abon
+
+    context = {
+        'librodia': listado,
+        'totaca': caracu,
+        'totaab': aboacu,
+    }
+    return render(request, "paginas/comprobacion.html", context)
