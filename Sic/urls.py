@@ -40,5 +40,9 @@ urlpatterns = [
     #Transacciones y Estados Financieros
     url(r'transcuenta/$', views.transcuenta, name='transcuenta'),
     url(r'comprobacion/$', views.comprobacion, name='comprobacion'),
+
+
+    #Mi Planilla
+    url(r'empleados/$',views.empleados,name='empleados'),
        
 ]

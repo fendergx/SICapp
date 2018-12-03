@@ -844,3 +844,7 @@ def libroVenta(request):
     }
     return render(request,"paginas/libro_ventas.html", context)
 
+def empleados(request):
+    empleado2 = empleado.objects.all()
+    contexto = {'empleados':empleado2}
+    return render(request, "paginas/empleados.html", contexto)
