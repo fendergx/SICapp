@@ -1,0 +1,57 @@
+{% extends "base/base.html" %}
+{% block contenido %}
+
+<div class="content-frame">
+    <!-- START CONTENT FRAME TOP -->
+    <div class="content-frame-top">
+        <div class="page-title">
+
+            <h2><span class="fa fa-inbox "></span> Libro de Compras
+                <small></small>
+            </h2>
+        </div>
+    </div>
+    <br> <br> <br> <br> <br> <br>
+    <div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading ui-draggable-handle">
+               <div id="inicial">
+                <h3 class="panel-title" >Compras</h3></div></div>
+    <div class="panel-body">
+        <table class="table" id="idBancas">
+            <thead>
+            <tr>
+
+                <th>Fecha</th>
+                <th>Termino de compra</th>
+                <th>Tipo de compra</th>
+                <th>Proveedor</th>
+                <th>Plazo</th>
+                <th>IVA</th>
+                <th>Total</th>
+                
+            </tr>
+            </thead>
+            <tbody>
+            
+            {% for compras in compra %}
+                {% if compras.total != 0%}
+                    <tr>
+                        <td>{{ compras.fecha }}</td>
+                        <td>{{ compras.terminoCompra }}</td>
+                        <td>{{ compras.tipoCompra }}</td>
+                        <td>{{ compras.proveedor }}</td>
+                        <td>{{ compras.plazo }}</td>
+                        <td>{{ compras.iva }}</td>
+                        <td>{{ compras.total }}</td>
+                    </tr>
+                {%  endif%}
+            {% endfor %}
+            </tbody>
+        </table>
+        
+    </div></div></div>
+
+
+    </div>
+{% endblock %}

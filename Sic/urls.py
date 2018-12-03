@@ -35,7 +35,8 @@ urlpatterns = [
 	url(r'inventarios/$', views.inventario, name='inventarios'),
 	url(r'inventarioProducto/$', views.inventarioProducto, name='inventarioProducto'),
     url(r'catalogo/$',views.catalogo,name='catalogo'),
-
+    url(r'libroCompra/$',views.libroCompra,name='libroCompra'),
+    url(r'libroVenta/$',views.libroVenta,name='libroVenta'),
     #Transacciones y Estados Financieros
     url(r'transcuenta/$', views.transcuenta, name='transcuenta'),
     url(r'comprobacion/$', views.comprobacion, name='comprobacion'),

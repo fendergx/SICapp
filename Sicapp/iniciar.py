@@ -170,17 +170,7 @@ def agregarKardex(cantEntrada,precEntrada,cantSalida,precSalida,concepto):
     kardex=Kardex()
     detalle = detalleKardex.objects.get(nombre=concepto)
 
-    print("detalle")
-								 
-							
-							
-							 
-						   
-						   
-							
-								 
-								 
-																		  
+    print("detalle")											  
     print(detalle)
     print("Concepto")
     print(concepto)
@@ -414,7 +404,7 @@ def iniciarCatalogo():
     Cuenta.objects.create(codCuenta="CL01", codigoN="61", nombre="Cuenta Liquidadora", tipoCuenta="Cuenta de Cierre")
     Cuenta.objects.create(codCuenta="CL02", codigoN="611", nombre="Perdidas y Ganancias", tipoCuenta="Cuenta de Cierre")
 
-def costosUnitarios(cantidad,producto):
+def costosUnitarios(cantidad,producto,abono):
     detallePeld = detalleKardex.objects.get(nombre="Plastico PELD")
     detallePehd = detalleKardex.objects.get(nombre="Plastico PEHD")
     detallePet = detalleKardex.objects.get(nombre="Plastico PET")
@@ -449,16 +439,29 @@ def costosUnitarios(cantidad,producto):
 
     if producto == "Mesas para exterior":
         agregarKardex(cantidad, cuMesas, 0, 0, producto)
+        total=cantidad*cuMesas
     else:
         if producto == "Bancas para exterior":
             agregarKardex(cantidad, cuBancas, 0, 0, producto)
+            total=cantidad*cuBancas
         else:
             if producto == "Sillas de playa":
                 agregarKardex(cantidad, cuSillas, 0, 0, producto)
+                total=float(cantidad)*cuSillas
             else:
                 if producto == "Losas plasticas":
                     agregarKardex(cantidad, cuLosas, 0, 0, producto)
-                else:agregarKardex(cantidad, cuFiguras, 0, 0, producto)
+                    total=cantidad*cuLosas
+                else:
+                    agregarKardex(cantidad, cuFiguras, 0, 0, producto)
+                    total=cantidad*cuFiguras
+
+
+    cuentaP=Cuenta.objects.get(nombre="Productos en Proceso")  
+    cuenta1=Cuenta.objects.get(nombre=producto)                     
+    agregarDiario(cuentaP,"Orden",abono,0)
+    agregarDiario(cuentaP,"Orden",0,total)
+    agregarDiario(cuenta1,"Orden",total,0)
 
     print("mesas: ")
     print(cuMesas)

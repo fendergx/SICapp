@@ -35,6 +35,9 @@ def probando(request):
     cuentas=Cuenta.objects.all()
     if len(cuentas)==0:
         iniciarCatalogo()
+    libro=LibroMayor.objects.all()
+    if len(libro)==0:
+        iniciarLibroMayor
     return render(request,"paginas/index.html",{'anios_esta':PeriodoContable.objects.raw('select * from Sicapp_PeriodoContable group by anio order by anio desc  ')})
 
 def estadosFinancieros(request, id_estados):
@@ -517,11 +520,13 @@ def inventario(request):
         else:
             if producto == "Bancas para exterior":
                 cant = float(cantidad) * 5.9
+                concepto = "Plastico PEHD"
                 precio =7
 
             else:
                 if producto == "Sillas de playa":
                     cant = float(cantidad) * 8.9
+                    concepto = "Plastico PEHD"
                     precio=18
                 else:
                     if producto == "Losas plasticas":
@@ -532,9 +537,15 @@ def inventario(request):
                         cant = float(cantidad) * 1.3
                         concepto = "Plastico PET"
                         precio=1
-        concepto = "Plastico PEHD"
+        
         agregarKardex(0, 0, cant, 0, concepto)
-        costosUnitarios(cantidad,producto)
+        cuenta=Cuenta.objects.get(nombre=concepto)   
+           
+        detalle = detalleKardex.objects.get(nombre=concepto)
+        ultimo = Kardex.objects.filter(detalle=detalle).latest('idKardex')
+        abono=(float(ultimo.precExistencia)*float(cant))
+        costosUnitarios(cantidad,producto,abono)    
+        agregarDiario(cuenta,"Orden",0,abono)
 		
         inventario = Kardex.objects.all()
         context = {
@@ -811,3 +822,25 @@ def comprobacion(request):
         'totaab': aboacu,
     }
     return render(request, "paginas/comprobacion.html", context)
+def libroCompra(request):
+    anios_estados = PeriodoContable.objects.raw(
+        'select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
+    periodo=PeriodoContable.objects.filter(activo=False).latest('idPeriodo')
+    compra=Compra.objects.filter(periodoCon=periodo)
+    context={
+        'anios_esta': anios_estados,
+        'compra':compra,
+    }
+    return render(request,"paginas/libro_compras.html", context)
+
+def libroVenta(request):
+    anios_estados = PeriodoContable.objects.raw(
+        'select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
+    periodo=PeriodoContable.objects.filter(activo=False).latest('idPeriodo')
+    venta=Venta.objects.filter(periodoCon=periodo)
+    context={
+        'anios_esta': anios_estados,
+        'venta':venta,
+    }
+    return render(request,"paginas/libro_ventas.html", context)
+
