@@ -583,3 +583,15 @@ def inventario1(request):
 
 def comprobacion(request):
     return render(request, "paginas/comprobacion.html")
+
+
+##############SECCION NUEVA#################
+def compras(request):
+    compra = Compra.objects.all()
+    contexto = {'compras':compra}
+    return render(request, "paginas/librocompras.html", contexto)
+
+def ventas(request):
+    venta = Venta.objects.all()
+    contexto = {'ventas':venta}
+    return render(request, "paginas/libroventas.html", contexto)

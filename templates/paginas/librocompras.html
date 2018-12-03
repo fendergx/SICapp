@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+
+{% block contenido %}
+<div class="content-frame">
+    <div class="content-frame-top">
+        <div class="page-title">
+            <h2><span class="fa fa-inbox"></span> Libro de compras
+                <small></small>
+            </h2>
+        </div>
+
+
+    </div>
+
+    <div class="content-frame-left" style="height: 700px;">
+
+        <div class="block">
+            <div class="list-group border-bottom">
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="content-frame-body" style="height: 760px;">
+        <div class="block">
+            <div class="panel panel-default">
+                <div class="panel-heading ui-draggable-handle">
+ 
+                </div>
+                <div class="panel-body">
+    <table class="table table-bordered">
+    	<thead>
+    		<tr>
+    			<td>Fecha</td>
+    			<td>Término </td>
+    			<td>Tipo</td>
+                <td>Proveedor</td>
+                <td>Plazo</td>
+                <td>IVA</td>
+                <td>Total</td>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		{% if compras %}
+    		{% for compra in compras %}
+    		<tr>
+    			<td>{{compra.fecha}}</td>
+                <td>{{compra.terminoCompra}}</td>
+                <td>{{compra.tipoCompra}}</td>
+                <td>{{compra.proveedor}}</td>
+                <td>{{compra.plazo}}</td>
+                <td>$ {{compra.iva}}</td>
+                <td>$ {{compra.total}}</td>
+    		</tr>
+    		{% endfor %}
+
+    		{% else %}
+    		<h1>no hay registros</h1>
+    		{% endif %}
+    	</tbody>
+    </table>
+    </div>
+{% endblock contenido %}

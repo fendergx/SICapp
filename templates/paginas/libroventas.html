@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+
+{% block contenido %}
+<div class="content-frame">
+    <div class="content-frame-top">
+        <div class="page-title">
+            <h2><span class="fa fa-inbox"></span> Libro de Ventas
+                <small></small>
+            </h2>
+        </div>
+
+
+    </div>
+
+    <div class="content-frame-left" style="height: 700px;">
+
+        <div class="block">
+            <div class="list-group border-bottom">
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="content-frame-body" style="height: 760px;">
+        <div class="block">
+            <div class="panel panel-default">
+                <div class="panel-heading ui-draggable-handle">
+ 
+                </div>
+                <div class="panel-body">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>Fecha</td>
+                <td>Término </td>
+                <td>Tipo</td>
+                <td>Cliente</td>
+                <td>Plazo</td>
+                <td>IVA</td>
+                <td>Total</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% if ventas %}
+            {% for venta in ventas %}
+            <tr>
+                <td>{{venta.fecha}}</td>
+                <td>{{venta.terminoVenta}}</td>
+                <td>{{venta.tipoVenta}}</td>
+                <td>{{venta.cliente}}</td>
+                <td>{{venta.plazo}}</td>
+                <td>$ {{venta.iva}}</td>
+                <td>$ {{venta.total}}</td>
+            </tr>
+            {% endfor %}
+
+            {% else %}
+            <h1>no hay registros</h1>
+            {% endif %}
+        </tbody>
+    </table>
+    </div>
+{% endblock contenido %}

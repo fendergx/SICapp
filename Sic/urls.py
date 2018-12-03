@@ -39,5 +39,8 @@ urlpatterns = [
     #Transacciones y Estados Financieros
     url(r'transcuenta/$', views.transcuenta, name='transcuenta'),
     url(r'comprobacion/$', views.comprobacion, name='comprobacion'),
-       
+
+    #Libros... no los toquen ALV! xD
+    url(r'librocompra/$',views.compras,name='librocompra'),
+    url(r'libroventa/$',views.ventas,name='libroventa'),
 ]
