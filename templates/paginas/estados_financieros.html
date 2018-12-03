@@ -73,10 +73,7 @@
                                                 <th>Haber</th>
                                             </tr>
                                             <tr>
-                                                <td><b>Activo</b></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td colspan="4"><b>Activo</b></td>
                                             </tr>
                                             {% for list in librodia%}
                                             <tr>
@@ -87,10 +84,7 @@
                                             </tr>
                                             {% endfor %}
                                             <tr>
-                                                <td><b>Pasivo</b></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td colspan="4"><b>Pasivo</b></td>
                                             </tr>
                                             {% for list in librodib%}
                                             <tr>
@@ -101,10 +95,7 @@
                                             </tr>
                                             {% endfor %}
                                             <tr>
-                                                <td><b>Capital</b></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td colspan="4"><b>Capital</b></td>
                                             </tr>
                                             {% for list in librodic%}
                                             <tr>
@@ -115,8 +106,8 @@
                                             </tr>
                                             {% endfor %}
                                             <tr>
-                                                <td>TOTAL</td>
-                                                <td></td>
+                                                <td colspan="2"><b>TOTAL</b></td>
+                                                
                                                 <td>{{totaca}}</td>
                                                 <td>{{totaab}}</td>
                                             </tr>
@@ -131,9 +122,6 @@
                                         <h3 class="panel-title">Estado Resultado</h3>
                                     </div>
                                     <div class="panel-body">
-                                        <p>Add <code>.table .table-bordered</code> to table to get table with borders.
-                                        </p>
-
                                         <table class="table table-bordered ">
                                             <thead>
                                             <tr>
@@ -146,91 +134,78 @@
                                                     Ingresos por ventas
                                                 </td>
                                                 <td></td>
-                                                <td></td>
+                                                <td>{{ingreo}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="col-lg-4">
                                                     (-) Costos por ventas
                                                 </td>
                                                 <td></td>
-                                                <td></td>
+                                                <td>{{costov}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="col-lg-4">
                                                     <b>Utilidad Bruta</b>
                                                 </td>
                                                 <td></td>
-                                                <td></td>
+                                                <td>{{bruta}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="col-lg-4">
                                                     (-) Gastos de operacion
                                                 </td>
                                                 <td></td>
-                                                <td></td>
+                                                <td>{{gastoop}}</td>
                                             </tr>
-                                            <tr>
-                                                <td class="col-lg-4">
-                                                    Gastos de Administracion
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-lg-4">
-                                                    Gastos de comercializacion
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
+                                            
                                             <tr>
                                                 <td class="col-lg-4">
                                                     <b>Utilidad de operacion</b>
                                                 </td>
                                                 <td></td>
-                                                <td></td>
+                                                <td>{{utiop}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="col-lg-4">
                                                     (-)Gastos de Financiero
                                                 </td>
                                                 <td></td>
-                                                <td></td>
+                                                <td>{{financi}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="col-lg-4">
                                                     <b>Utilidad antes del ISR y Reserva</b>
                                                 </td>
                                                 <td></td>
-                                                <td></td>
+                                                <td>{{utifi}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="col-lg-4">
                                                     Reserva legal(7%)
                                                 </td>
                                                 <td></td>
-                                                <td></td>
+                                                <td>{{reser}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="col-lg-4">
                                                     <b>Utilidad antes del ISR</b>
                                                 </td>
                                                 <td></td>
-                                                <td></td>
+                                                <td>{{utire}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="col-lg-4">
                                                     Impuesto sobre la renta(25%)
                                                 </td>
                                                 <td></td>
-                                                <td></td>
+                                                <td>{{impue}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="col-lg-4">
                                                     <b>Utilidad Neta</b>
                                                 </td>
                                                 <td></td>
-                                                <td></td>
+                                                <td>{{neta}}</td>
                                             </tr>
 
                                             </tbody>

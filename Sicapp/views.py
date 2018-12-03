@@ -47,7 +47,13 @@ def estadosFinancieros(request, id_estados):
     lisaux = []
     caracu = 0.0
     aboacu = 0.0
-
+    activoa = 0.0
+    pasivoa = 0.0
+    capitaa = 0.0
+    ingrven = 0.0
+    costven = 0.0
+    gastoop = 0.0
+    financi = 0.0
 ####### Metodo de ordenamiento de cuentas
     for libros in librosDiarios:
         if int(libros.cuenta.codigoN[0:2]) == 11:
@@ -106,13 +112,70 @@ def estadosFinancieros(request, id_estados):
         a = [libros.cuenta.codigoN,libros.cuenta.nombre,carg,abon,libros.cuenta.tipoCuenta]
         if a[4]=='Activo':
             listadoa.append(a)
+            activoa = activoa + a[3]
         if a[4]=='Pasivo':
             listadob.append(a)
+            pasivoa = pasivoa + a[3]
         if a[4]=='Patrimonio':
             listadoc.append(a)
+            capitaa = capitaa + a[3]
         caracu = caracu + carg
         aboacu = aboacu + abon
 
+    for libros in librosDiarios:
+        if libros.cuenta.tipoCuenta == "Cuentas de Resultado Acreedor":
+            carg = float(libros.cargo)
+            abon = float(libros.abono)
+            if cab < 0:
+                abon = -cab
+                carg = 0
+            else:
+                carg = cab
+                abon = 0
+            ingrven = ingrven + cab
+    
+    for libros in librosDiarios:
+        if libros.cuenta.tipoCuenta == "Cuentas de Resultado Deud":
+            carg = float(libros.cargo)
+            abon = float(libros.abono)
+            if cab < 0:
+                abon = -cab
+                carg = 0
+            else:
+                carg = cab
+                abon = 0
+            costven = costven + cab
+    for libros in librosDiarios:
+        if libros.cuenta.tipoCuenta == "Cuentas de Resultado Deudor":
+            carg = float(libros.cargo)
+            abon = float(libros.abono)
+            if cab < 0:
+                abon = -cab
+                carg = 0
+            else:
+                carg = cab
+                abon = 0
+            gastoop = gastoop + cab
+
+    for libros in librosDiarios:
+        if libros.cuenta.codigoN == "4121" or libros.cuenta.codigoN == "4122":
+            carg = float(libros.cargo)
+            abon = float(libros.abono)
+            if cab < 0:
+                abon = -cab
+                carg = 0
+            else:
+                carg = cab
+                abon = 0
+            financi = financi + cab
+
+    bruta = ingrven - costven
+    utiop = bruta - gastoop + financi
+    utifi = utiop - financi
+    reser = utifi*0.07
+    utire = utifi - reser
+    impue = utire*0.25
+    neta = utire - impue
     context ={
         'anios':anios,
         'anios_esta':anios_estados,
@@ -122,6 +185,17 @@ def estadosFinancieros(request, id_estados):
         'librodic': listadoc,
         'totaca': caracu,
         'totaab': aboacu,
+        'ingreo': ingrven,
+        'costov': costven,
+        'bruta': bruta,
+        'gastoop': gastoop,
+        'utiop': utiop,
+        'financi': financi,
+        'utifi': utifi,
+        'reser': reser,
+        'utire': utire,
+        'impue': impue,
+        'neta': neta,
     }
     return render(request,"paginas/estados_financieros.html",context)
 
@@ -514,6 +588,9 @@ def catalogo(request):
 
 ##############################################################
 def transcuenta(request):
+
+    anios_estados = PeriodoContable.objects.raw(
+        'select * from Sicapp_PeriodoContable group by anio order by anio desc  ') 
     cuentas = Cuenta.objects.all()
     exito = ' '
 
@@ -527,6 +604,7 @@ def transcuenta(request):
         agregarDiario(cuentadehaber,"abono",0,monto)
         exito = "Se hizo una transaccion"
         context = {
+            'anios_esta': anios_estados,
             'cuenta': cuentas,
             'cuende': cuentadedebe,
             'cuenha': cuentadehaber,
@@ -536,6 +614,7 @@ def transcuenta(request):
         return render(request, "paginas/transa_cuentas.html", context)
 
     context ={
+        'anios_esta': anios_estados,
         'cuenta': cuentas,
         'exito': exito,
     }
