@@ -29,6 +29,7 @@ def iniciarPeriodo(): #Inicializar un periodo contable en caso de que no haya un
     periodoC.fechaFin= date(anio,mes,dia)
     periodoC.anio=anio
     periodoC.mes=mes
+    
     periodoC.save()
 
 def iniciarLibroMayor(periodo):

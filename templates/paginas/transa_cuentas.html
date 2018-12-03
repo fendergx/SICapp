@@ -18,7 +18,7 @@
                 <div class="form-group " role="form">
                     <label class="control-label col-md-1">Debe</label>
                     <div class="col-md-4">
-                        <select class="form-control selectpicker" name="idcue1" id="idcue1">
+                        <select class="form-control select" name="idcue1" id="idcue1" data-live-search="true">
 						{% for cue in cuenta %}
                         {% if cue.padre == False %}
 							<option value="{{cue.codCuenta}}" style="width: 15%" name>{{cue.nombre}}</option>
@@ -28,7 +28,7 @@
                     </div>
                     <label class="control-label col-md-1">Haber</label>
                     <div class=" col-md-4">
-                        <select class="form-control selectpicker" name="idcue2" id="idcue2">
+                        <select class="form-control select" name="idcue2" id="idcue2" data-live-search="true">
                         {% for cue in cuenta %}
                         {% if cue.padre == False %}
                             <option value="{{cue.codCuenta}}" style="width: 15%">{{cue.nombre}}</option>
