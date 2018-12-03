@@ -43,4 +43,7 @@ urlpatterns = [
     #Libros... no los toquen ALV! xD
     url(r'librocompra/$',views.librocompras,name='librocompra'),
     url(r'libroventa/$',views.libroventas,name='libroventa'),
+
+    #Mi Planilla
+    url(r'empleados/$',views.empleados,name='empleados'),
 ]
