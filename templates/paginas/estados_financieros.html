@@ -204,96 +204,69 @@
                                         <h3 class="panel-title">Balance General</h3>
                                     </div>
                                     <div class="panel-body">
-                                        <p>Add <code>.table .table-bordered</code> to table to get table with borders.
-                                        </p>
                                         <table class="table table-bordered">
-                                            |
-                                            <thead>
+
                                             <tr>
                                                 <th>Activos</th>
                                                 <th></th>
                                                 <th></th>
 
                                             </tr>
-                                            </thead>
-                                            <tbody>
-
+                                            {% for list in librodia%}
                                             <tr>
-                                                <td class="col-lg-3 "><b>Activo Coriente</b></td>
-                                                <td class="col-lg-1"></td>
-                                                <td class="col-lg-1">100</td>
+                                                <td class="col-lg-3">{{list.1}}</td>
+                                                <td class="col-lg-1">{{list.2}}</td>
+                                                <td class="col-lg-1">{{list.3}}</td>
                                             </tr>
+                                            {% endfor %}
                                             <tr>
-                                                <td>Efectivo</td>
-                                                <td>100</td>
-                                                <td></td>
+                                                <th>TOTAL ACTIVO</th>
+                                                <th></th>
+                                                <th>{{totalactivo}}</th>
                                             </tr>
-                                            <tr>
-                                                <td class="col-lg-3"><b>Activo no corriente</b></td>
-                                                <td class="col-lg-1"></td>
-                                                <td class="col-lg-1">400</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Edificaciones</td>
-                                                <td>400</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-lg-3"><b>Activo Diferido</b></td>
-                                                <td class="col-lg-1"></td>
-                                                <td class="col-lg-1">300</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Inversion fija</td>
-                                                <td>300</td>
-                                                <td></td>
-                                            </tr>
-
-                                            </tbody>
-                                        </table>
-                                        <table class="table table-bordered">
-                                            |
-                                            <thead>
                                             <tr>
 
                                                 <th>Pasivos</th>
                                                 <th></th>
                                                 <th></th>
                                             </tr>
-                                            </thead>
-                                            <tbody>
+                                            {% for list in librodib%}
                                             <tr>
-                                                <td class="col-lg-3 "><b>Pasivo Coriente</b></td>
-                                                <td class="col-lg-1"></td>
-                                                <td class="col-lg-1">100</td>
+                                                <td class="col-lg-3">{{list.1}}</td>
+                                                <td class="col-lg-1">{{list.2}}</td>
+                                                <td class="col-lg-1">{{list.3}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <th>TOTAL PASIVO</th>
+                                                <th></th>
+                                                <th>{{totalpasivo}}</th>
                                             </tr>
                                             <tr>
-                                                <td>Cuentas por pagar</td>
-                                                <td>100</td>
+                                                <td><b>Patrimonio<b></td>
+                                                <td></td>
                                                 <td></td>
                                             </tr>
                                             <tr>
-                                                <td class="col-lg-3"><b>Pasivo no corriente</b></td>
+                                                <td class="col-lg-3">Capital Social</td>
+                                                <td class="col-lg-1">{{capso}}</td>
                                                 <td class="col-lg-1"></td>
-                                                <td class="col-lg-1">400</td>
                                             </tr>
                                             <tr>
-                                                <td>Cuentas a largo plazo</td>
-                                                <td>400</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-lg-3"><b>Patrimonio</b></td>
+                                                <td class="col-lg-3">Utilidades Retenidas</td>
+                                                <td class="col-lg-1">{{reten}}</td>
                                                 <td class="col-lg-1"></td>
-                                                <td class="col-lg-1">300</td>
                                             </tr>
                                             <tr>
-                                                <td>Capital social</td>
-                                                <td>300</td>
-                                                <td></td>
+                                                <th>TOTAL PATRIMONIO</th>
+                                                <th></th>
+                                                <th>{{patri}}</th>
                                             </tr>
-
-                                            </tbody>
+                                            <tr>
+                                                <th>TOTAL PASIVO + PATRIMONIO</th>
+                                                <th></th>
+                                                <th>{{toral}}</th>
+                                            </tr>
                                         </table>
 
 

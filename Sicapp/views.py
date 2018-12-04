@@ -58,7 +58,8 @@ def estadosFinancieros(request, id_estados):
     gastoop = 0.0
     financi = 0.0
     aportac = 0.0
-
+    totalactivo = 0.00
+    totalpasivo = 0.00
 ####### Metodo de ordenamiento de cuentas
     for libros in librosDiarios:
         if int(libros.cuenta.codigoN[0:2]) == 11:
@@ -123,10 +124,12 @@ def estadosFinancieros(request, id_estados):
         if a[4]=='Activo':
             listadoa.append(a)
             activoa = activoa + a[3]
+            totalactivo = totalactivo + carg
         else:
             if a[4]=='Pasivo':
                 listadob.append(a)
                 pasivoa = pasivoa + a[3]
+                totalpasivo = totalpasivo + abon
             else:
                 listadoc.append(a)
                 capitaa = capitaa + a[3]
@@ -134,7 +137,7 @@ def estadosFinancieros(request, id_estados):
 
 
     for libros in librosDiarios:
-        if libros.cuenta.tipoCuenta == "Cuentas de Resultado Acreedor":
+        if libros.cuenta.tipoCuenta == "Cuentas de Resultado Acreedor" or libros.cuenta.tipoCuenta == "Cuentas de Resultado Acre":
             carg = float(libros.cargo)
             abon = float(libros.abono)
             cab = carg - abon
@@ -179,6 +182,7 @@ def estadosFinancieros(request, id_estados):
     newne = neta - ren
     reuti = newne*0.70
     reten = newne*0.30
+    
 
     for libros in librosDiarios:
         if libros.cuenta.codigoN == "311":
@@ -188,7 +192,10 @@ def estadosFinancieros(request, id_estados):
             if cab < 0:
                 cab = -cab
             aportac = aportac + cab
+    
     capso = aportac + reuti
+    patri = capso + reten
+    toral = totalpasivo + patri
     context ={
         'anios':anios,
         'anios_esta':anios_estados,
@@ -206,6 +213,12 @@ def estadosFinancieros(request, id_estados):
         'capso': capso,
         'aportac': aportac,
         'reuti': reuti,
+        'totalactivo': totalactivo,
+        'totalpasivo': totalpasivo,
+        'reten': reten,
+        'patri':patri,
+        'toral': toral,
+
     }
     return render(request,"paginas/estados_financieros.html",context)
 
