@@ -536,6 +536,7 @@ def inventario(request):
         cantidad = request.POST.get("cantidad")
         if producto == "Mesas para exterior":
             cant = float(cantidad) * 9.3
+            concepto = "Plastico PEHD"
             precio=12 #Estos precio deberan de ser calculados con una funcion, ejemplo precio=calcularPrecio(cant)
         else:
             if producto == "Bancas para exterior":
@@ -857,7 +858,7 @@ def libroVenta(request):
     anios_estados = PeriodoContable.objects.raw(
         'select * from Sicapp_PeriodoContable group by anio order by anio desc  ')
     periodo=PeriodoContable.objects.filter(activo=False).latest('idPeriodo')
-    venta=Venta.objects.filter(periodoCon=periodo)
+    venta=Venta.objects.all()
     context={
         'anios_esta': anios_estados,
         'venta':venta,

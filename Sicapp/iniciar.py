@@ -492,10 +492,11 @@ def costosUnitarios(cantidad,producto,abono):
                     total=cantidad*cuFiguras
 
 
-    cuentaP=Cuenta.objects.get(nombre="Productos en Proceso")  
-    cuenta1=Cuenta.objects.get(nombre=producto)                     
-    agregarDiario(cuentaP,"Orden",abono,0)
-    agregarDiario(cuentaP,"Orden",0,total)
+    cuentaP=Cuenta.objects.get(nombre="Materiales Indirectos")  
+    cuenta1=Cuenta.objects.get(nombre=producto)  
+    prod=total-abono                   
+    agregarDiario(cuentaP,"Orden",0,prod)
+   # agregarDiario(cuentaP,"Orden",0,total)
     agregarDiario(cuenta1,"Orden",total,0)
 
     print("mesas: ")
