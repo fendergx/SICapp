@@ -181,7 +181,7 @@ def estadosFinancieros(request, id_estados):
         ren = neta*0.30
     newne = neta - ren
     reuti = newne*0.70
-    reten = newne*0.30
+    reten = (newne*0.30)+ren
     
 
     for libros in librosDiarios:
