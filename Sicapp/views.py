@@ -57,6 +57,7 @@ def estadosFinancieros(request, id_estados):
     costven = 0.0
     gastoop = 0.0
     financi = 0.0
+    aportac = 0.0
 
 ####### Metodo de ordenamiento de cuentas
     for libros in librosDiarios:
@@ -171,6 +172,23 @@ def estadosFinancieros(request, id_estados):
     bruta = ingrven - costven
     gastoop = gastoop - costven
     neta = bruta - gastoop
+    if neta <= 250000:
+        ren = neta*0.25
+    else:
+        ren = neta*0.30
+    newne = neta - ren
+    reuti = newne*0.70
+    reten = newne*0.30
+
+    for libros in librosDiarios:
+        if libros.cuenta.codigoN == "311":
+            carg = float(libros.cargo)
+            abon = float(libros.abono)
+            cab = carg - abon
+            if cab < 0:
+                cab = -cab
+            aportac = aportac + cab
+    capso = aportac + reuti
     context ={
         'anios':anios,
         'anios_esta':anios_estados,
@@ -185,6 +203,9 @@ def estadosFinancieros(request, id_estados):
         'bruta': bruta,
         'gastoop': gastoop,
         'neta': neta,
+        'capso': capso,
+        'aportac': aportac,
+        'reuti': reuti,
     }
     return render(request,"paginas/estados_financieros.html",context)
 
