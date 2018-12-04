@@ -57,6 +57,7 @@ def estadosFinancieros(request, id_estados):
     costven = 0.0
     gastoop = 0.0
     financi = 0.0
+
 ####### Metodo de ordenamiento de cuentas
     for libros in librosDiarios:
         if int(libros.cuenta.codigoN[0:2]) == 11:
@@ -66,6 +67,9 @@ def estadosFinancieros(request, id_estados):
             lisaux.append(libros)
     for libros in librosDiarios:
         if int(libros.cuenta.codigoN[0:2]) == 13:
+            lisaux.append(libros)
+    for libros in librosDiarios:
+        if int(libros.cuenta.codigoN[0:2]) == 19:
             lisaux.append(libros)
     for libros in librosDiarios:
         if int(libros.cuenta.codigoN[0:2]) == 21:
@@ -107,78 +111,66 @@ def estadosFinancieros(request, id_estados):
         abon = float(libros.abono)
         cab = carg - abon
         if cab < 0:
-            abon = -cab
+            abon = float(-cab)
             carg = 0
         else:
             carg = cab
             abon = 0
+        caracu = float(caracu + carg)
+        aboacu = float(aboacu + abon)
         a = [libros.cuenta.codigoN,libros.cuenta.nombre,carg,abon,libros.cuenta.tipoCuenta]
         if a[4]=='Activo':
             listadoa.append(a)
             activoa = activoa + a[3]
-        if a[4]=='Pasivo':
-            listadob.append(a)
-            pasivoa = pasivoa + a[3]
-        if a[4]=='Patrimonio':
-            listadoc.append(a)
-            capitaa = capitaa + a[3]
-        caracu = caracu + carg
-        aboacu = aboacu + abon
+        else:
+            if a[4]=='Pasivo':
+                listadob.append(a)
+                pasivoa = pasivoa + a[3]
+            else:
+                listadoc.append(a)
+                capitaa = capitaa + a[3]
+        
+
 
     for libros in librosDiarios:
         if libros.cuenta.tipoCuenta == "Cuentas de Resultado Acreedor":
             carg = float(libros.cargo)
             abon = float(libros.abono)
-            if cab < 0:
-                abon = -cab
-                carg = 0
+            cab = carg - abon
+            print (cab)
+            if cab < 0.0:
+                cab = -cab
             else:
                 carg = cab
                 abon = 0
+            print ("paso por aqui")
+            print (libros.cuenta.nombre)
+            
             ingrven = ingrven + cab
     
     for libros in librosDiarios:
-        if libros.cuenta.tipoCuenta == "Cuentas de Resultado Deud":
+        if libros.cuenta.codigoN == "42":
             carg = float(libros.cargo)
             abon = float(libros.abono)
+            cab = carg - abon
             if cab < 0:
-                abon = -cab
-                carg = 0
-            else:
-                carg = cab
-                abon = 0
+                cab = -cab
             costven = costven + cab
     for libros in librosDiarios:
-        if libros.cuenta.tipoCuenta == "Cuentas de Resultado Deudor":
+        if libros.cuenta.tipoCuenta == "Cuentas de Resultado Deud" or libros.cuenta.tipoCuenta == "Cuentas de Resultado Deudor":
             carg = float(libros.cargo)
             abon = float(libros.abono)
+            cab = carg - abon
             if cab < 0:
-                abon = -cab
-                carg = 0
+                cab = -cab
             else:
                 carg = cab
                 abon = 0
             gastoop = gastoop + cab
 
-    for libros in librosDiarios:
-        if libros.cuenta.codigoN == "4121" or libros.cuenta.codigoN == "4122":
-            carg = float(libros.cargo)
-            abon = float(libros.abono)
-            if cab < 0:
-                abon = -cab
-                carg = 0
-            else:
-                carg = cab
-                abon = 0
-            financi = financi + cab
-
     bruta = ingrven - costven
-    utiop = bruta - gastoop + financi
-    utifi = utiop - financi
-    reser = utifi*0.07
-    utire = utifi - reser
-    impue = utire*0.25
-    neta = utire - impue
+    gastoop = gastoop - costven
+    neta = bruta - gastoop
     context ={
         'anios':anios,
         'anios_esta':anios_estados,
@@ -192,12 +184,6 @@ def estadosFinancieros(request, id_estados):
         'costov': costven,
         'bruta': bruta,
         'gastoop': gastoop,
-        'utiop': utiop,
-        'financi': financi,
-        'utifi': utifi,
-        'reser': reser,
-        'utire': utire,
-        'impue': impue,
         'neta': neta,
     }
     return render(request,"paginas/estados_financieros.html",context)
