@@ -866,5 +866,8 @@ def libroVenta(request):
 
 def empleados(request):
     empleado2 = empleado.objects.all()
+    if len(empleado2)==0:
+        startEmpleado()
+    empleado2 = empleado.objects.all()
     contexto = {'empleados':empleado2}
     return render(request, "paginas/empleados.html", contexto)

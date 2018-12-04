@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from datetime import  date
 
 from Sicapp.models import *
@@ -223,6 +226,37 @@ def iniciarVenta():
 
     return venta.idVenta
 
+def startEmpleado():
+    empleado.objects.create(nombreCompleto="Acevedo Manriquez Maria",cargo="Gerente General",sueldoBase=812.60,ingresoExtra=0.0,vacaciones=43.41,totalDevengado=856.01,isss=25.68,afp=53.50,renta=56.07,otrasDeducciones=0.0,sueldoLiquido=720.76,tipo="Administracion")
+    empleado.objects.create(nombreCompleto="Acevedo Mejia Enrique",cargo="Jefe Administrativo",sueldoBase=507.88,ingresoExtra=0.0,vacaciones=43.41,totalDevengado=535.01,isss=16.05,afp=33.44,renta=23.97,otrasDeducciones=0.0,sueldoLiquido=461.55,tipo="Administracion")
+    empleado.objects.create(nombreCompleto="Acevedo Ruiz Carolina",cargo="Jefe de Produccion",sueldoBase=507.88,ingresoExtra=0.0,vacaciones=43.41,totalDevengado=535.01,isss=16.05,afp=33.44,renta=23.97,otrasDeducciones=0.0,sueldoLiquido=461.55,tipo="Administracion")
+    empleado.objects.create(nombreCompleto="Acosta Gamez Celina",cargo="Jefe de Marketing",sueldoBase=507.88,ingresoExtra=0.0,vacaciones=43.41,totalDevengado=535.01,isss=16.05,afp=33.44,renta=23.97,otrasDeducciones=0.0,sueldoLiquido=461.55,tipo="Administracion")
+    empleado.objects.create(nombreCompleto="Aguilar Dorantes Irma",cargo="Jefe de Bodega",sueldoBase=507.88,ingresoExtra=0.0,vacaciones=43.41,totalDevengado=535.01,isss=16.05,afp=33.44,renta=23.97,otrasDeducciones=0.0,sueldoLiquido=461.55,tipo="Administracion")
+    empleado.objects.create(nombreCompleto="Alarcon Licona Salomon",cargo="Encargado de Contabilidad",sueldoBase=310.3,ingresoExtra=0.0,vacaciones=16.58,totalDevengado=326.88,isss=9.81,afp=20.43,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=296.64,tipo="Administracion")
+    empleado.objects.create(nombreCompleto="Alatriste Perez Hipolito",cargo="Encargado de control de calidad",sueldoBase=310.3,ingresoExtra=0.0,vacaciones=16.58,totalDevengado=326.88,isss=9.81,afp=20.43,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=296.64,tipo="Administracion")
+    empleado.objects.create(nombreCompleto="Aldrete Vargas Adolfo",cargo="Recepcionista",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Administracion")
+    empleado.objects.create(nombreCompleto="Alderete Porras Jacinta",cargo="Secretaria",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Administracion")
+    empleado.objects.create(nombreCompleto="Aleman Mundo Maria",cargo="Secretaria",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Administracion")
+    empleado.objects.create(nombreCompleto="Almman Mundo Marcial",cargo="Motorista de carga",sueldoBase=310.3,ingresoExtra=0.0,vacaciones=16.58,totalDevengado=326.88,isss=9.81,afp=20.43,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=296.64,tipo="Mano de Obra I.")
+    empleado.objects.create(nombreCompleto="Alonso Ibarra Pascual",cargo="Motorista de carga",sueldoBase=310.3,ingresoExtra=0.0,vacaciones=16.58,totalDevengado=326.88,isss=9.81,afp=20.43,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=296.64,tipo="Mano de Obra I.")
+    empleado.objects.create(nombreCompleto="Alvarado Mendoza Oscar",cargo="Vigilante",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Mano de Obra I.")
+    empleado.objects.create(nombreCompleto="Alvarez Martinez Veronica",cargo="Vigilante",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Mano de Obra I.")
+    empleado.objects.create(nombreCompleto="Alvarez Medellin Felipe",cargo="Vigilante",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Mano de Obra I.")
+    empleado.objects.create(nombreCompleto="Alvarez Villanueva Salvador ",cargo="Vigilante",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Mano de Obra I.")
+    empleado.objects.create(nombreCompleto="Amaya Salvador Arturo",cargo="Operario",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Produccion")
+    empleado.objects.create(nombreCompleto="Andrade Bujanda Rafael",cargo="Operario",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Produccion")
+    empleado.objects.create(nombreCompleto="Angulo Garfias Raúl",cargo="Operario",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Produccion")
+    empleado.objects.create(nombreCompleto="Ayala Quijano Mario Andrés",cargo="Operario",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Producción")
+    empleado.objects.create(nombreCompleto="Bacab Pech Guillermo",cargo="Operario",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Producción")
+    empleado.objects.create(nombreCompleto="Balderas Flores Luis",cargo="Operario",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Producción")
+    empleado.objects.create(nombreCompleto="Bastidas Iribe Audel",cargo="Operario",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Producción")
+    empleado.objects.create(nombreCompleto="Bautista Mejía Alejandro",cargo="Operario",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Producción")
+    empleado.objects.create(nombreCompleto="Betanzos Torres Noel",cargo="Operario",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Producción")
+    empleado.objects.create(nombreCompleto="Caballero Green Francisco",cargo="Operario",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Producción")
+    empleado.objects.create(nombreCompleto="Gomez Evora Francisco",cargo="Operario",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Producción")
+    empleado.objects.create(nombreCompleto="Hernández Monterrey Grace",cargo="Operario",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Producción")
+    empleado.objects.create(nombreCompleto="Iraheta Herrera Carlos",cargo="Operario",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Producción")
+    empleado.objects.create(nombreCompleto="Lenidas Ponce Carlos",cargo="Operario",sueldoBase=224.57,ingresoExtra=0.0,vacaciones=12,totalDevengado=236.57,isss=7.10,afp=14.79,renta=0.0,otrasDeducciones=0.0,sueldoLiquido=214.69,tipo="Producción") 
 def iniciarClientes():
     Cliente.objects.create(nrc="215",razonSocial="Mikkel SS",direccion="Urbanizacion Majuca, Cuscatanciongo, San Salvador")
     Cliente.objects.create(nrc="348", razonSocial="Jericho Barrons", direccion="Carretera a Agua Caliente, Kilometro 5 1/2, Soyapango, San Salvador")
